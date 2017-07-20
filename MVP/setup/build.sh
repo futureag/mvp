@@ -1,9 +1,12 @@
 # Create empty directories
 
-cd /home/pi/Hold/MVP
+cd /home/pi/MVP
 mkdir data
 mkdir logs
 mkdir pictures
+
+sudo apt-get update
+sudo apt-get upgrade
 
 # Components needed for 'brain'
 
@@ -19,8 +22,3 @@ sudo pip install pygal
 
 
 echo "Edit /etc/couchdb/default.ini, then reboot"
-
-
- #Build 2
-
-echo "Edit rc.local, then reboot"
