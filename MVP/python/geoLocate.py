@@ -4,7 +4,6 @@
 
 import requests
 import json
-import env
 
 def getLocation():
     send_url='http://freegeoip.net/json'
