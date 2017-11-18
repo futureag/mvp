@@ -77,6 +77,10 @@ echo  $(date +"%D %T") "opencv Library intalled"
 python $PYTHON/buildEnv.py || error_exit "Failure to build environment variables"
 echo  $(date +"%D %T") "Environment variables built"
 
+python $PYTHON/buildVariables.py || error_exit "Failure to build state variables"
+echo  $(date +"%D %T") "State variables built"
+
+
 
 sudo bash /home/pi/MVP/scripts/render.sh
 echo $(date +"%D %T") "System PASSED"
