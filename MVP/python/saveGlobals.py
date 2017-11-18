@@ -1,7 +1,6 @@
 # Create global variables as a dictionary, used when logging sensors that give the unique id of the system (MAC address) and the experiment started.
 # A python file is generated that is 'read' by the logging program.
 import os
-import env
 
 env_file = '/home/pi/MVP/python/env.py'
 var_file = '/home/pi/MVP/python/variable.py'
