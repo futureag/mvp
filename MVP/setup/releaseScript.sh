@@ -39,6 +39,11 @@ mkdir -p logs
 mkdir =p pictures
 echo $(date -u) "directories created"
 
+# Install CouchDB
+
+chown +x $TARGET/startup/couch.sh
+$TARGET/startup/couch.sh || error_exit "Failure to install CouchDB"
+
 # Install Libraries
 
 # FS Webcam
