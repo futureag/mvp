@@ -90,6 +90,9 @@ echo  $(date +"%D %T") "Environment variables built"
 python $PYTHON/buildVariables.py || error_exit "Failure to build state variables"
 echo  $(date +"%D %T") "State variables built"
 
+# Build some data
+python $PYTHON/logSensors.py || error_exit "Failure testing sensors"
+
 # Test the system and build some data
 python $PYTHON/testScript.py || error_exit "Failure of test script"
 
