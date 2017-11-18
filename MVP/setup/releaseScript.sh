@@ -90,7 +90,8 @@ echo  $(date +"%D %T") "Environment variables built"
 python $PYTHON/buildVariables.py || error_exit "Failure to build state variables"
 echo  $(date +"%D %T") "State variables built"
 
-
+# Test the system and build some data
+python $PYTHON/testScript.py || error_exit "Failure of test script"
 
 sudo bash /home/pi/MVP/scripts/render.sh
 echo $(date +"%D %T") "System PASSED"
