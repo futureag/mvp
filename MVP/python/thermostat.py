@@ -5,9 +5,8 @@
 
 import RPi.GPIO as GPIO
 from logData import logData
-from persistVariable import getVariable, setVariable
-from si7021 import getTempC
-
+from saveGlobals import saveVariable
+import variable
 
 
 def adjustThermostat(temp):
@@ -18,8 +17,8 @@ def adjustThermostat(temp):
     currentFanOn = True
     _priorFanOn = "priorFanOn"
     _targetTemp = "targetTemp"
-    priorFanOn = getVariable(_priorFanOn)
-    targetTemp = getVariable(_targetTemp)
+    priorFanOn = variable.env['priorFanOn']
+    targetTemp = variable.env['targetTemp']
     print("Target Temp %s" %targetTemp)
     print("Current Temp: %s" %temp)
     
@@ -45,11 +44,13 @@ def adjustThermostat(temp):
     if currentFanOn != priorFanOn:
         print ("Fans not equal")
         if currentFanOn:
-            logData("Exhaust Fan", "Success", "switch", "ON", "Current Temp: " + str(temp))
-            print("Fan change - fan ON")
+            logData("Exhaust Fan", "Success", "state", "On", "Current Temp: " + str(temp))
+            print("Fan state - On")
         else:
-            logData("Exhaust Fan", "Success", "switch", "OFF", "Current Temp: " + str(temp))
-            print ("Fan change - fan OFF")
-            
-    setVariable(_priorFanOn, currentFanOn)
+            logData("Exhaust Fan", "Success", "state", "Off", "Current Temp: " + str(temp))
+            print ("Fan state - Off")
+# Save out changed fan state
+        tmp=variable.var
+        tmp[_priorFanOn]=currentFanOn
+        saveVariable('priorFanOn', currentFanOn)
 
