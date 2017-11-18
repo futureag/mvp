@@ -1,3 +1,5 @@
+import os
+
 #Check sensors and log to file
 from oneWireTemp import getTempC
 from logData import logData
@@ -6,6 +8,11 @@ boxTemp = 0
 topTemp = 1
 reservoirTemp = 2
 ambientTemp = 3
+
+os.system('modprobe w1-gpio')
+os.system('modprobe w1-therm')
+
+
 
 try:
     temp = getTempC(ambientTemp)
