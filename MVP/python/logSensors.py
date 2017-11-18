@@ -5,11 +5,11 @@ from logData import logData
 try:
     temp = getTempC()
     logData("si7921_top", "Success", "temperature", "{:10.1f}".format(temp), '')
-except (IOError, e):
+except Exception as e:
         logData("si7921_top", "Failure", "temperature", '', str(e))
 
 try:
     humid = getHumidity()
     logData("si7021_top", "Success", "humidity", "{:10.1f}".format(humid), '')
-except (IOError, e):
+except Exception as e:
         logData("si7921_top", "Failure", "humidity", '', str(e))
