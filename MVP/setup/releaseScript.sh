@@ -13,7 +13,7 @@
 #######################################
 
 TARGET=/home/pi/MVP
-PYTHON=$TARTET/python
+PYTHON=$TARGET/python
 
 # Run the release specific build script
 
