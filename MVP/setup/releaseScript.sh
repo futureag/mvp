@@ -41,7 +41,7 @@ echo $(date -u) "directories created"
 
 # Install CouchDB
 
-chown +x $TARGET/setup/couch.sh
+sudo chown +x $TARGET/setup/couch.sh
 $TARGET/setup/couch.sh || error_exit "Failure to install CouchDB"
 
 # Install Libraries
