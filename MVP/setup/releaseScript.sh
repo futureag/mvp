@@ -52,7 +52,7 @@ echo  $(date +"%D %T") "pygal installed (used for charting)"
 # CouchDB python library
 # http://pythonhosted.org/CouchDB
 
-pip install  pycouchdb || error_exit "Failure to install CouchDB Python library"
+pip install  couchdb || error_exit "Failure to install CouchDB Python library"
 echo  $(date +"%D %T") "CouchDB Python Library intalled"
 
 # OpenCV library
@@ -70,6 +70,16 @@ echo  $(date +"%D %T") "ipython Library intalled"
 
 sudo apt-get install libopencv-dev python-opencv -y || error_exit "Failure to install opencv (computer vision) library"
 echo  $(date +"%D %T") "opencv Library intalled"
+
+##################################################
+# Local stuff
+
+# Make scripts executable
+chmod +x $TARGET/scripts/render.sh
+chmod +x $TARGET/scripts/webcam.sh
+chmod +x $TARGET/scripts/startServer.sh
+chmod +x $TARGET/scripts/stopServer.sh
+
 
 #Create variables
 # Build the environment information
