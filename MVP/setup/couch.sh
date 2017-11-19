@@ -1,3 +1,4 @@
+# Code substantially taken from: http://andyfelong.com/2017/09/couchdb-2-1-on-raspberry-pi-raspbian-stretch/
 # update packages & OS
 cd
 sudo apt-get update
