@@ -7,8 +7,6 @@
 #Author: Howard Webb
 #Date: 7/15/2017
 
-# Start the server
-/home/pi/MVP/scripts/startServer.sh
-
-# Start CouchDB
-/home/pi/MVP/scripts/startCouchDB.sh
+#NOTE: The server must be started from the directory from which files are to be served
+cd /home/pi/MVP/web
+nohup python /home/pi/MVP/python/server_8000.py &>~/MVP/logs/server.log &
