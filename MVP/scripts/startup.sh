@@ -10,3 +10,7 @@
 #NOTE: The server must be started from the directory from which files are to be served
 cd /home/pi/MVP/web
 nohup python /home/pi/MVP/python/server_8000.py &>~/MVP/logs/server.log &
+
+# Start CouchDB
+cd
+sudo -i -u couchdb /home/couchdb/bin/couchdb
