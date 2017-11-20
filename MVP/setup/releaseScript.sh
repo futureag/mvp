@@ -36,7 +36,7 @@ mkdir -p $TARGET || error_exit "Failure to build MVP directory"
 cd $TARGET
 mkdir -p data
 mkdir -p logs
-mkdir =p pictures
+mkdir -p pictures
 echo $(date -u) "directories created"
 
 # Install CouchDB
