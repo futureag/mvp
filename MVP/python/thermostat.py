@@ -5,7 +5,7 @@
 
 import RPi.GPIO as GPIO
 from logData import logData
-from saveGlobals import saveVariable
+from saveGlobals import setVariable
 import variable
 
 
@@ -52,5 +52,5 @@ def adjustThermostat(temp):
 # Save out changed fan state
         tmp=variable.var
         tmp[_priorFanOn]=currentFanOn
-        saveVariable('priorFanOn', currentFanOn)
+        setVariable('priorFanOn', currentFanOn)
 
