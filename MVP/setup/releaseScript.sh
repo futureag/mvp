@@ -84,7 +84,7 @@ chmod +x $TARGET/scripts/render.sh
 chmod +x $TARGET/scripts/webcam.sh
 chmod +x $TARGET/scripts/startServer.sh
 chmod +x $TARGET/scripts/stopServer.sh
-chmod +x $TARGET/scripts/startup.sh
+chmod +x $TARGET/scripts/startCouchDB.sh
 
 #Create variables
 # Build the environment information
@@ -94,6 +94,16 @@ echo  $(date +"%D %T") "Environment variables built"
 
 python $PYTHON/buildVariables.py || error_exit "Failure to build state variables"
 echo  $(date +"%D %T") "State variables built"
+
+echo  $(date +"%D %T") "Finished building CouchDB - try running"
+
+nohup sudo -i -u couchdb /home/couchdb/bin/couchdb > /home/pi/MVP/logs/couchdb.log &
+
+sleep 10   # wait for start before build databases
+
+curl -X PUT http://localhost:5984/_users
+curl -X PUT http://localhost:5984/_replicator
+curl -X PUT http://localhost:5984/_global_changes
 
 # Build some data
 python $PYTHON/logSensors.py || error_exit "Failure testing sensors"
@@ -121,7 +131,7 @@ fi
 # Modify /etc/rc.local
 RC_LOCAL=/etc/rc.local
 RC_LOCAL2=/etc/rc.local2
-if grep -q "startup.sh" /home/pi/scripts/test.txt;
+if grep -q "startup.sh" $RC_LOCAL;
 then
 	echo $RC_LOCAL" already has startup command"
 else
