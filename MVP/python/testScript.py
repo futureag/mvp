@@ -1,7 +1,6 @@
 #A script to test the functions of the OpenAg-MVP routines
 #Run this to validate code and that things are working correctly
 
-from persistVariable import *
 from adjustThermostat import *
 from setLightOn import *
 from setLightOff import *
