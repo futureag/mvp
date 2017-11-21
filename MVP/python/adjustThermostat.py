@@ -1,11 +1,11 @@
 from thermostat import adjustThermostat
-from oneWireTemp import getTempC
+from si7021 import getTempC
 from logData import logData
 
 boxTemp = 1
 
 try:
-    temp = getTempC(boxTemp)
+    temp = getTempC()
     adjustThermostat(temp)  
 except IOError as e:
     print("Failure to get temperature, no sensor found; check pins and sensor")

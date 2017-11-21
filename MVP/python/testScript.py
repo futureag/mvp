@@ -41,18 +41,6 @@ except (RuntimeError, e):
 try:
     print ("Build Humidity Chart")
     print (getHumidityChart())
-except (RuntimeError, e)    
+except (RuntimeError, e):    
     print ("Failure to build humidity chart", e)    
-
-try:
-    print ("Build Temp Chart")
-except (RuntimeError, e):
-    print ("Failure to build temp chart", e)  
-
-try:
-    print ("Build Multi Temp Chart")
-except (RuntimeError, e):
-    print ("Failure to build multi temp chart", e)      
-   
-
 
