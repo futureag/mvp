@@ -77,8 +77,9 @@ echo  $(date +"%D %T") "scipy Library intalled"
 sudo apt-get install ipython -y || error_exit "Failure to install ipython library"
 echo  $(date +"%D %T") "ipython Library intalled"
 
-sudo apt-get install libopencv-dev python-opencv -y || error_exit "Failure to install opencv (computer vision) library"
-echo  $(date +"%D %T") "opencv Library intalled"
+# Not needed at this time
+#sudo apt-get install libopencv-dev python-opencv -y || error_exit "Failure to install opencv (computer vision) library"
+#echo  $(date +"%D %T") "opencv Library intalled"
 
 ##################################################
 # Local stuff
