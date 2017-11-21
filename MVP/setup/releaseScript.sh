@@ -44,7 +44,7 @@ echo $(date -u) "directories created"
 sudo chmod +x $TARGET/setup/couch.sh
 $TARGET/setup/couch.sh || error_exit "Failure to install CouchDB"
 
-# Install Libraries
+################# Install Libraries ######################
 
 # FS Webcam
 sudo apt-get install fswebcam -y || error_exit "Failure to install fswebcam (USB Camera support)"
@@ -53,6 +53,10 @@ echo  $(date +"%D %T") "fswebcam intalled (supports USB camera"
 # Used for charting
 sudo pip install pygal|| error_exit "Failure to install pygal (needed for charting)"
 echo  $(date +"%D %T") "pygal installed (used for charting)"
+
+# Used for charting
+sudo pip install pandas|| error_exit "Failure to install pandas (needed for charting)"
+echo  $(date +"%D %T") "pandas installed (used for charting)"
 
 # CouchDB python library
 # http://pythonhosted.org/CouchDB
@@ -105,6 +109,17 @@ curl -X PUT http://localhost:5984/_users
 curl -X PUT http://localhost:5984/_replicator
 curl -X PUT http://localhost:5984/_global_changes
 
+########### Database built, customize for MVP #############
+ 
+# Build sensor database and view script
+curl -X PUT http://localhost:5984/mvp_sensor_data
+
+# To pull data from the database you need a view.  This is a specially named document in the data database.
+
+curl -X PUT http://localhost:5984/mvp_sensor_data/_design/doc --upload-file /home/pi/MVP/setup/view.txt
+
+########### Test the system ###################
+
 # Build some data
 python $PYTHON/logSensors.py || error_exit "Failure testing sensors"
 
@@ -143,5 +158,5 @@ fi
 # Load Cron
 crontab /home/pi/scripts/MVP_cron.txt
 
-echo $(date +"%D %T") "Your MVP is now running"
-reboot
+echo $(date +"%D %T") "Your MVP is now running - you should reboot the system"
+#reboot
