@@ -1,6 +1,6 @@
 # MVP II
 
-NOTE: 7/20/2017 - This respository is is the process of being built.  Do not use at this time.
+NOTE: 11/20/2017 - I have just about completed a build script that will download and install all components, and run the validation script.  It should be done in the next couple of days.  Until then, be warned that things may not work as advertised here (ie. CouchDB does not install with apt-get in the new skippy version of Raspbian).  The build script is working, but I am cleaning things up and making sure all the validations check out.  When done, this documentation will be updated to reflect the changes.
 
 MVP II is the next upgrade of the Minimal Viable Product.  There are no significant functional changes, but a cleaning up of the directory structures and some file name changes.  This version merges the 'brain' and the UI portions of the MVP, and prepares the way for future enhancements.
 
