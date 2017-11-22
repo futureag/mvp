@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Part 2
+# Version for building CouchDB
 # Semi-generic script to get and install github archive
 # Author: Howard Webb
 # Date: 11/16/2017
@@ -40,14 +41,14 @@ mkdir -p pictures
 echo $(date -u) "directories created"
 
 ################ Install CouchDB ########################
-
+echo "##### Start CouchDB Build - be patient #####"
 # Install CouchDB (build)
 
-sudo chmod +x $TARGET/setup/couch.sh
+sudo chmod +x $TARGET/setup/couchBld.sh
 $TARGET/setup/couch.sh || error_exit "Failure to install CouchDB"
 
 ################# Install Libraries ######################
-
+echo "##### Install Libraries #####"
 # FS Webcam
 sudo apt-get install fswebcam -y || error_exit "Failure to install fswebcam (USB Camera support)"
 echo  $(date +"%D %T") "fswebcam intalled (supports USB camera"
@@ -85,6 +86,7 @@ echo  $(date +"%D %T") "opencv Library intalled"
 ##################################################
 # Local stuff
 
+echo "##### Start Local file changes #####"
 # Make scripts executable
 chmod +x $TARGET/scripts/render.sh
 chmod +x $TARGET/scripts/webcam.sh
@@ -122,6 +124,7 @@ curl -X PUT http://localhost:5984/mvp_sensor_data/_design/doc --upload-file /hom
 
 ########### Test the system ###################
 
+echo "##### Start Testing #####"
 # Build some data
 python $PYTHON/logSensors.py || error_exit "Failure testing sensors"
 
@@ -133,6 +136,7 @@ echo $(date +"%D %T") "System PASSED"
 
 ########### Final configuration changes ######################
 
+echo "##### Start Final Configuration Changes #####"
 # Change CouchDB for access on network
 # modify /home/couchdb/etc/local.ini
 COUCH=/home/couchdb/etc/local.ini
