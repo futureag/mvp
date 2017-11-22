@@ -39,10 +39,10 @@ mkdir -p logs
 mkdir -p pictures
 echo $(date -u) "directories created"
 
-# Install CouchDB
+# Install CouchDB - Copy from Github
 
-sudo chmod +x $TARGET/setup/couch.sh
-$TARGET/setup/couch.sh || error_exit "Failure to install CouchDB"
+sudo chmod +x $TARGET/setup/couchDwn.sh
+sudo $TARGET/setup/couchDwn.sh || error_exit "Failure getting CouchDB from Github"
 
 ################# Install Libraries ######################
 
@@ -77,9 +77,8 @@ echo  $(date +"%D %T") "scipy Library intalled"
 sudo apt-get install ipython -y || error_exit "Failure to install ipython library"
 echo  $(date +"%D %T") "ipython Library intalled"
 
-# Not needed at this time
-#sudo apt-get install libopencv-dev python-opencv -y || error_exit "Failure to install opencv (computer vision) library"
-#echo  $(date +"%D %T") "opencv Library intalled"
+sudo apt-get install libopencv-dev python-opencv -y || error_exit "Failure to install opencv (computer vision) library"
+echo  $(date +"%D %T") "opencv Library intalled"
 
 ##################################################
 # Local stuff
@@ -125,8 +124,8 @@ curl -X PUT http://localhost:5984/mvp_sensor_data/_design/doc --upload-file /hom
 python $PYTHON/logSensors.py || error_exit "Failure testing sensors"
 
 # Test the system and build some data
-python $PYTHON/testScript.py || error_exit "Failure of test script"
-
+chown +x /home/pi/MVP/setup/Validate.sh
+/home/pi/MVP/setup/Validate.sh || error_exit "Validation test failure"
 sudo bash /home/pi/MVP/scripts/render.sh
 echo $(date +"%D %T") "System PASSED"
 
