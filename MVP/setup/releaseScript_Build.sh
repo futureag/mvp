@@ -39,9 +39,11 @@ mkdir -p logs
 mkdir -p pictures
 echo $(date -u) "directories created"
 
-# Install CouchDB
+################ Install CouchDB ########################
 
-sudo chmod +x $TARGET/setup/couch.sh
+# Install CouchDB (download)
+
+sudo chmod +x $TARGET/setup/couchDwn.sh
 $TARGET/setup/couch.sh || error_exit "Failure to install CouchDB"
 
 ################# Install Libraries ######################
@@ -128,6 +130,8 @@ chown +x /home/pi/MVP/setup/Validate.sh
 /home/pi/MVP/setup/Validate.sh || error_exit "Validation test failure"
 sudo bash /home/pi/MVP/scripts/render.sh
 echo $(date +"%D %T") "System PASSED"
+
+########### Final configuration changes ######################
 
 # Change CouchDB for access on network
 # modify /home/couchdb/etc/local.ini

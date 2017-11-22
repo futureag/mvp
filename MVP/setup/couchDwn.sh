@@ -60,13 +60,12 @@ cd $EXTRACT
 sudo unzip -uo /home/pi/c_unpack/CouchDB-2-1-master/couchdb.zip || error_exit "Failure unzipping inner couchdb.zip file"
 
 # UnTar the inner files, overwrite older existing files without prompting
-sudo tar -xf $EXTRACT/couchdb.tar --directory $EXTRACT
+sudo tar -xfp $EXTRACT/couchdb.tar --directory $TARGET
 echo $(date +"%D %T") "CouchDB files unpacked"
 
 #copy built release to couchdb user home directory
 #sudo cp -Rp * /home/couchdb
 sudo chown -R couchdb:couchdb /home/couchdb
-sudo chmod +x -R /home/couchdb
 echo $(date +"%D %T") "CouchDB files moved"
 
 # Clean up temporary extraction directory
