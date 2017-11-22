@@ -87,8 +87,8 @@ fi
 
 python $cmd
 
-printf "\n---Check Output for good data, no Failures or missing values---\n"
-read -p "Press Enter to continue"
+#printf "\n---Check Output for good data, no Failures or missing values---\n"
+#read -p "Press Enter to continue"
 
 printf "\n---Test Actuators---\n"
 
