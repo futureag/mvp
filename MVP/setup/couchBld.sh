@@ -38,3 +38,9 @@ cd ./rel/couchdb/
 sudo cp -Rp * /home/couchdb
 sudo chown -R couchdb:couchdb /home/couchdb
 cd /home/couchdb/etc
+
+# Finish the first time setup
+curl -X PUT http://localhost:5984/_users
+curl -X PUT http://localhost:5984/_replicator
+curl -X PUT http://localhost:5984/_global_changes
+
