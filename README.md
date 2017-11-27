@@ -72,25 +72,112 @@ Code follows the board number convention.
 ### Software Build
 
 The build scripts are the documentation.  If you want to build things yourself, follow the scripts (MVP/setup).
-The initial script is not in Github, as the script extracts the files from Github and changes the permissions on /home/pi/MVP/setup/releaseScript.sh.  If you do not have the script, you can run the following:
+The initial script is not in Github, as the script extracts the files from Github and changes the permissions on /home/pi/MVP/setup/releaseScript.sh.  
+```
+#!/bin/sh
 
+# Part 1
+# Semi-generic script to get and install github archive
+# Author: Howard Webb
+# Date: 11/16/2017
+
+# This script assumes you are running on your Raspberry Pi with (Stretch) Raspbian installed.
+# Internet is connected
+# You have configured the local environment (keyboard, timezone)
+# You have adjusted the Pi Preferences (Configuration)
+#   Enable the camera interface
+#   Enable I2C
+#   Optionally (suggested) enable SSH, VCN and 1-Wire
+
+# Get the release from Github
+# Extract it to the proper directory
+# Make the build script executable
+# Run the release specific build script
+
+###### Declarations #######################
+
+
+RED='\033[31;47m'   # Define red text
+NC='\033[0m'        # Define default text
+
+EXTRACT=/home/pi/unpack    # Working directory for download and unzipping
+TARGET=/home/pi/MVP       # Location for MVP
+RELEASE=OpenAg-MVP-II             # Package (repository) to download 
+GITHUB=https://github.com/webbhm/$RELEASE/archive/master.zip    # Address of Github archive
+
+echo $EXTRACT
+echo $TARGET
+echo $RELEASE
+echo $GITHUB
+
+###### Error handling function ###################
+
+PROGNAME=$(basename $0)
+
+error_exit()
+{
+	echo ${RED} $(date +"%D %T") "${PROGNAME}: ${1:="Unknown Error"}" ${NC} 1>&2
+	tput sgr0
+	exit 1
+}
+
+####### Start Build ######################
+echo "##### Update Existing System #####"
 sudo apt-get update
-mkdir -p /home/pi/MVP
-mkdir -p /home/pi/unpack
-wget https://github.com/webbhm/OpenAg-MVP-II/archive/master.zip -O mvp.zip
-cd /home/pi/unpack
-unzip -uo /home/pi/unpack/mvp.zip
-cd /home/pi/unpack/OpenAg-MVP-II-master/MVP
-mv * /home/pi/MVP
-rm -r /home/pi/unpack
-chmod +x /home/pi/MVP/setup/releaseScript.sh
-/home/pi/MVP/setup/releaseScript.sh
 
-releaseScript.sh calls the following scripts:
-releaseScript_DB.sh - installs the CouchDB code
-releaseScript_Local.sh - builds libraries, starts the database and initializes things
-releaseScript_Test.sh - calls Validate.sh to test the system
-releaseScript_Final.sh - configures start-up and loads cron
+echo "##### Starting to build directories #####"
+# Build target directory
+mkdir -p $TARGET || error_exit "Failure to build target directory"
+echo $(date +"%D %T") $TARGET" built"
+
+echo "##### Starting download of MVP from Github #####"
+# Download MVP from GitHub and install
+# Build extraction directory
+mkdir -p $EXTRACT || error_exit "Failure to build working directory"
+echo $(date +"%D %T") "Directory built"
+cd $EXTRACT
+
+# Download from Github
+wget $GITHUB -O mvp.zip || error_exit "Failure to download zip file"
+echo $(date +"%D %T") "MVP Github downloaded"
+
+cd $EXTRACT
+
+# Unzip the files, overwrite older existing files without prompting
+unzip -uo $EXTRACT/mvp.zip || error_exit "Failure unzipping file"
+echo $(date +"%D %T") "MVP unzipped"
+
+cd $EXTRACT/$RELEASE-master/MVP || error_exit "Failure moving to "$EXTRACT/$RELEASE"-master"
+
+# Move to proper directory
+mv * $TARGET
+echo $(date +"%D %T") "MVP moved"
+
+# Clean up temporary extraction directory
+rm -r $EXTRACT
+echo $(date +"%D %T") $EXTRACT" removed"
+
+########################################
+echo "##### Relsease Specific Build #####"
+# Complete the release specific build - this is the CouchDB extract
+
+# Set permissions on script
+chmod +x $TARGET/setup/releaseScript.sh || error_exit "Failure setting permissions on release script (check file exists in MVP/scripts)"
+echo $(date +"%D %T") "Run permissions set"
+
+# Comment out this line for auto build
+exit 0
+
+# Run script in download
+bash $TARGET/setup/releaseScript.sh || error_exit "Failure running release specific script"
+echo $(date +"%D %T") "Install Complete"
+
+```
+- releaseScript.sh calls the following scripts:
+- releaseScript_DB.sh - installs the CouchDB code
+- releaseScript_Local.sh - builds libraries, starts the database and initializes things
+- releaseScript_Test.sh - calls Validate.sh to test the system
+- releaseScript_Final.sh - configures start-up and loads cron
 
 ## To Do:
 1. Add a watchdog to the Raspberry
