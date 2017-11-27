@@ -27,7 +27,7 @@ yes | cp "$pic_dir$FN" "$web_dir"image.jpg
 
 #create the temperature graph
 echo "Build temperature graph"
-python "$python_dir"getMultiTempChart.py
+python "$python_dir"getTempChart.py
 
 echo "Build humidity graph"
 #create the humidity graph
