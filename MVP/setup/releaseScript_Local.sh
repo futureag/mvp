@@ -37,11 +37,6 @@ echo  $(date +"%D %T") "fswebcam intalled (supports USB camera"
 sudo pip install pygal|| error_exit "Failure to install pygal (needed for charting)"
 echo  $(date +"%D %T") "pygal installed (used for charting)"
 
-# Used for charting
-sudo pip install pandas|| error_exit "Failure to install pandas (needed for charting)"
-echo  $(date +"%D %T") "pandas installed (used for charting)"
-
-
 pip install  couchdb || error_exit "Failure to install CouchDB Python library"
 echo  $(date +"%D %T") "CouchDB Python Library intalled"
 
@@ -56,9 +51,6 @@ echo  $(date +"%D %T") "scipy Library intalled"
 
 sudo apt-get install ipython -y || error_exit "Failure to install ipython library"
 echo  $(date +"%D %T") "ipython Library intalled"
-
-sudo apt-get install libopencv-dev python-opencv -y || error_exit "Failure to install opencv (computer vision) library"
-echo  $(date +"%D %T") "opencv Library intalled"
 
 ##################################################
 # Local stuff
