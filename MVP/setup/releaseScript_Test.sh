@@ -36,8 +36,7 @@ echo "##### Start Testing #####"
 python $PYTHON/logSensors.py || error_exit "Failure testing sensors"
 
 # Test the system and build some data
-chown +x /home/pi/MVP/setup/Validate.sh
-/home/pi/MVP/setup/Validate.sh || error_exit "Validation test failure"
-sudo bash /home/pi/MVP/scripts/render.sh
+chown +x $TARGET/setup/Validate.sh
+$TARGET/setup/Validate.sh || error_exit "Validation test failure"
 echo $(date +"%D %T") "System PASSED"
 

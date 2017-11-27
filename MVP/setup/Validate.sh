@@ -131,7 +131,7 @@ fi
 printf "\n---Building website, if you got this far, there is some data---\n"
 
 cmd=$main_dir/scripts/render.sh
-bash $cmd &> /dev/null
+$cmd &> /dev/null
 if [ $? = 0 ]
 then
     printf "Website render OK\n"
