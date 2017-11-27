@@ -35,9 +35,9 @@ sudo apt-get update
 
 echo "##### Installing CouchDB #####"
 # Uncomment to compile
-#COUCH=couchBld.sh
+COUCH=couchBld.sh
 # Uncomment to download
-COUCH=couchDwn.sh 
+#COUCH=couchDwn.sh 
 
 # Install Database
 chmod +x $TARGET/setup/$COUCH || error_exit "Failure setting permissions "$COUCH
