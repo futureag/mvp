@@ -1,48 +1,63 @@
-# Distributed with a free-will license.
-# Use it any way you want, profit or free, provided it fits in the licenses of its associated works.
-# SI7021
-# This code is designed to work with the SI7021_I2CS I2C Mini Module available from ControlEverything.com.
-# https://www.controleverything.com/content/Humidity?sku=SI7021_I2CS#tabs-0-product_tabset-2
-
-import smbus
-import time
-
-# Get I2C bus
+import smbus2, time
 
 
-def getTempC():
-# SI7021 address, 0x40(64)
-#		0xF3(243)	Select temperature NO HOLD master mode
-    bus = smbus.SMBus(1)
-    bus.write_byte(0x40, 0xF3)
+address = 0x40
+rh_no_hold = 0xf5
+previous_temp = 0xe0
 
-    time.sleep(0.3)
 
-# SI7021 address, 0x40(64)
-# Read data back, 2 bytes, Temperature MSB first
-    data0 = bus.read_byte(0x40)
-    data1 = bus.read_byte(0x40)
+class si7021(object):
+    def __init__(self):
+        self.bus = smbus2.SMBus(1)
 
-# Convert the data
-    cTemp = ((data0 * 256 + data1) * 175.72 / 65536.0) - 46.85
-    #fTemp = cTemp * 1.8 + 32
-    print ("Temperature in Celsius is : %.2f C" %cTemp)
-    #print ("Temperature in Fahrenheit is : %.2f F" %fTemp)
-    return cTemp
+    def read_word(self):
+        """
+        Use I2C ioctl to read Si7021 measurements because SMBus ioctl misbehaves.
+        If you just call read_byte() twice, you get the same byte both times. And
+        if you try to read a 2 byte buffer here, it also doesn't work right. For
+        some reason, 3 bytes seems to be okay.
+        """
+        msg = smbus2.i2c_msg.read(0x40, 3)
+        self.bus.i2c_rdwr(msg)
+        msb = ord(msg.buf[0])
+        lsb = ord(msg.buf[1])
+        checksum = ord(msg.buf[2])
+#        print "  si7021 i2c read:", msb, lsb, checksum
+        return (msb*256) + lsb
 
-def getHumidity():
-    bus = smbus.SMBus(1)
-    bus.write_byte(0x40, 0xF5)
+    def write(self, command):
+        self.bus.write_byte(address, command)
+	
+    def temp_and_humidity(self):
+        self.write(rh_no_hold)
+        time.sleep(0.03)
+        percent_rh = self.read_word()
+        percent_rh = 125.0/65536.0*percent_rh-6.0
+        self.write(previous_temp)
+        temp_c = self.read_word()
+        temp_c = 175.72/65536.0*temp_c-46.85
+        return temp_c, percent_rh
 
-    time.sleep(0.3)
+    def getHumidity(self):
+        self.write(rh_no_hold)
+        time.sleep(0.03)
+        percent_rh = self.read_word()
+        percent_rh = 125.0/65536.0*percent_rh-6.0
+        return percent_rh
 
-# SI7021 address, 0x40(64)
-# Read data back, 2 bytes, Humidity MSB first
-    data0 = bus.read_byte(0x40)
-    data1 = bus.read_byte(0x40)
+    def getTempC(self):
+        self.write(previous_temp)
+        temp_c = self.read_word()
+        temp_c = 175.72/65536.0*temp_c-46.85
+        return temp_c
 
-# Convert the data
-    humidity = ((data0 * 256 + data1) * 125 / 65536.0) - 6
-    print ("Relative Humidity is : %.2f %%" %humidity)
-    return humidity
+    def test(self):
+        'Self test of the object'
+        print('\n*** Test SI7021 ***\n')
+        print('Temp C: %.2f F' %self.getTempC())
+        print('Humidity : %.2f %%' %self.getHumidity())
 
+if __name__=="__main__":
+    t=si7021()
+    t.test()
+    
