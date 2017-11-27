@@ -33,6 +33,10 @@ echo "##### Install Libraries #####"
 sudo apt-get install fswebcam -y || error_exit "Failure to install fswebcam (USB Camera support)"
 echo  $(date +"%D %T") "fswebcam intalled (supports USB camera"
 
+# Needed for I2C
+sudo pip install smbus2 || error_exit "Failure to install smbus (needed for si7021 temp sensor)"
+echo  $(date +"%D %T") "smbus installed (needed for si7021 temp sensor)"
+
 # Used for charting
 sudo pip install pygal|| error_exit "Failure to install pygal (needed for charting)"
 echo  $(date +"%D %T") "pygal installed (used for charting)"
