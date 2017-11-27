@@ -1,14 +1,10 @@
 #!/bin/sh
 
-# Libraries and Local
+# Final configuration
 # Version for building CouchDB
 # Semi-generic script to get and install github archive
 # Author: Howard Webb
 # Date: 11/16/2017
-# Create directories
-# Install libraries, including CouchDB and OpenCV
-# Set up variables
-# Test the System
 # Load cron to automate
 
 #######################################

@@ -30,9 +30,6 @@ error_exit()
 
 ###### Release Modules #######
 
-# Update what have
-sudo apt-get update
-
 echo "##### Installing CouchDB #####"
 # Uncomment to compile
 COUCH=couchBld.sh
@@ -44,5 +41,6 @@ chmod +x $TARGET/setup/$COUCH || error_exit "Failure setting permissions "$COUCH
 echo $(date +"%D %T") "Run permissions set"
 bash $TARGET/setup/$COUCH || error_exit "Failure building CouchDB"
 echo $(date +"%D %T") "CouchDB Install"
+
 
 exit 0

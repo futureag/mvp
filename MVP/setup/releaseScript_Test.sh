@@ -36,7 +36,7 @@ echo "##### Start Testing #####"
 python $PYTHON/logSensors.py || error_exit "Failure testing sensors"
 
 # Test the system and build some data
-chown +x $TARGET/setup/Validate.sh
+chmod +x $TARGET/setup/Validate.sh
 $TARGET/setup/Validate.sh || error_exit "Validation test failure"
 echo $(date +"%D %T") "System PASSED"
 
