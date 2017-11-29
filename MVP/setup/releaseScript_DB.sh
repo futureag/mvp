@@ -32,9 +32,9 @@ error_exit()
 
 echo "##### Installing CouchDB #####"
 # Uncomment to compile
-#COUCH=couchBld.sh
+COUCH=couchBld.sh
 # Uncomment to download
-COUCH=couchDwn.sh 
+#COUCH=couchDwn.sh 
 
 #add couchdb user and home
 sudo useradd -d /home/couchdb couchdb
@@ -53,17 +53,13 @@ mkdir -p logs
 chmod +x $TARGET/scripts/startCouchDB.sh
 $TARGET/scripts/startCouchDB.sh
 
-sleep 10   # wait for start before build databases
+sleep 10
 
-########### Database built, customize for MVP #############
- 
-# Build sensor database and view script
-curl -X PUT http://localhost:5984/mvp_sensor_data
+echo "##### Finish Initianization of CouchDB #####"
+chmod +x $TARGET/setup/couchInit.sh || error_exit "Failure setting permissions "$COUCH
+$TARGET/setup/couchInit.sh
 
-# To pull data from the database you need a view.  This is a specially named document in the data database.
 
-curl -X PUT http://localhost:5984/mvp_sensor_data/_design/doc --upload-file /home/pi/MVP/setup/view.txt
 
-echo  $(date +"%D %T") "Finished building CouchDB - now running"
 
 exit 0
