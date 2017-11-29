@@ -166,7 +166,6 @@ chmod +x $TARGET/setup/releaseScript.sh || error_exit "Failure setting permissio
 echo $(date +"%D %T") "Run permissions set"
 
 # Comment out this line for auto build
-exit 0
 
 # Run script in download
 bash $TARGET/setup/releaseScript.sh || error_exit "Failure running release specific script"
