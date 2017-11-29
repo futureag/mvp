@@ -63,7 +63,6 @@ echo "##### Build directories #####"
 mkdir -p $TARGET || error_exit "Failure to build MVP directory"
 cd $TARGET
 mkdir -p data
-mkdir -p logs
 mkdir -p pictures
 echo $(date -u) "directories created"
 
@@ -73,7 +72,6 @@ chmod +x $TARGET/scripts/render.sh
 chmod +x $TARGET/scripts/webcam.sh
 chmod +x $TARGET/scripts/startServer.sh
 chmod +x $TARGET/scripts/stopServer.sh
-chmod +x $TARGET/scripts/startCouchDB.sh
 
 #Create variables
 # Build the environment information
@@ -83,24 +81,5 @@ echo  $(date +"%D %T") "Environment variables built"
 
 python $PYTHON/buildVariables.py || error_exit "Failure to build state variables"
 echo  $(date +"%D %T") "State variables built"
-
-echo  $(date +"%D %T") "Finished building CouchDB - try running"
-
-nohup sudo -i -u couchdb /home/couchdb/bin/couchdb > /home/pi/MVP/logs/couchdb.log &
-
-sleep 10   # wait for start before build databases
-
-curl -X PUT http://localhost:5984/_users
-curl -X PUT http://localhost:5984/_replicator
-curl -X PUT http://localhost:5984/_global_changes
-
-########### Database built, customize for MVP #############
- 
-# Build sensor database and view script
-curl -X PUT http://localhost:5984/mvp_sensor_data
-
-# To pull data from the database you need a view.  This is a specially named document in the data database.
-
-curl -X PUT http://localhost:5984/mvp_sensor_data/_design/doc --upload-file /home/pi/MVP/setup/view.txt
 
 exit 0

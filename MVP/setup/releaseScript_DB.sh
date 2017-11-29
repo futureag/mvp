@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Part 2
+# CouchDB setup
 # Semi-generic script to get and install github archive
 # Author: Howard Webb
 # Date: 11/16/2017
@@ -32,9 +32,12 @@ error_exit()
 
 echo "##### Installing CouchDB #####"
 # Uncomment to compile
-COUCH=couchBld.sh
+#COUCH=couchBld.sh
 # Uncomment to download
-#COUCH=couchDwn.sh 
+COUCH=couchDwn.sh 
+
+#add couchdb user and home
+sudo useradd -d /home/couchdb couchdb
 
 # Install Database
 chmod +x $TARGET/setup/$COUCH || error_exit "Failure setting permissions "$COUCH
@@ -42,5 +45,25 @@ echo $(date +"%D %T") "Run permissions set"
 bash $TARGET/setup/$COUCH || error_exit "Failure building CouchDB"
 echo $(date +"%D %T") "CouchDB Install"
 
+# Create log directory
+cd $TARGET
+mkdir -p logs
+
+# start database
+chmod +x $TARGET/scripts/startCouchDB.sh
+$TARGET/scripts/startCouchDB.sh
+
+sleep 10   # wait for start before build databases
+
+########### Database built, customize for MVP #############
+ 
+# Build sensor database and view script
+curl -X PUT http://localhost:5984/mvp_sensor_data
+
+# To pull data from the database you need a view.  This is a specially named document in the data database.
+
+curl -X PUT http://localhost:5984/mvp_sensor_data/_design/doc --upload-file /home/pi/MVP/setup/view.txt
+
+echo  $(date +"%D %T") "Finished building CouchDB - now running"
 
 exit 0
