@@ -1,0 +1,53 @@
+# Crontab jobs used by the MVP 
+# Author: Howard Webb
+# Date: 11/13/2017
+# Warning: This will overwrite any existing crontab, do not use if you use cron for other purposes
+
+# Don't send email
+MAILTO=""
+
+# Path to the MVP python code
+PY_PATH=/home/pi/MVP/python
+
+# Path to the MVP scripts
+MVP_SCRIPT=/home/pi/MVP/scripts
+
+# Path to other scripts
+SCRIPT_PATH=/home/pi/scripts
+
+# Cron output log
+CRON_LOG=/home/pi/MVP/logs/cron.log
+
+# m h  dom mon dow   command
+# Check thermostat every minute
+*/1 * * * * python $PY_PATH/adjustThermostat.py >> $CRON_LOG 2>&1
+
+# Turn lights on at 6AM
+0 6 * * * python $PY_PATH/setLightOn.py >> $CRON_LOG 2>&1
+
+# Turn lights off at 22:30 (10:30PM)
+30 22 * * * python $PY_PATH/setLightOff.py >> $CRON_LOG 2>&1
+
+# Log the sensors every 20 minutes
+*/20 * * * * python $PY_PATH/logSensors.py >> $CRON_LOG 2>&1
+
+# Take a USB camera picture one minute after the hour from 6am to 10pm
+1 6-22 * * * $MVP_SCRIPTS/webcam.sh >> $CRON_LOG 2>&1
+
+# Take a Raspberry picture one minute after the hour from 6am to 10pm
+2 6-22 * * * python $PY_PATH/getImage.py >> $CRON_LOG 2>&1
+
+# Render the data for the website
+10 * * * * $MVP_SCRIPTS/render.sh >> $CRON_LOG 2>&1
+
+# Send out a mmqt message with the temp every minute
+*/1 * * * * python $PY_PATH/pingTemp.py >> $CRON_LOG 2>&1
+
+# Send a tween every noon
+0 12 * * * python $PY_PATH/tweet.py >> $CRON_LOG 2>&1
+
+# Check the reservoir level 30 minutes after every hour
+30 * * * * python $PY_PATH/reservoir.py >> $CRON_LOG 2>&1
+
+# Do image analysis 5 minutes after the hour between 6 and 10pm
+5 6-22 * * * $SCRIPT_PATH/processImage.sh >> $CRON_LOG 2>&1
