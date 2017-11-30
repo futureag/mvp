@@ -28,6 +28,9 @@ error_exit()
 }
 
 ################# Install Libraries ######################
+# Make sure back to home directory
+cd /home/pi
+
 echo "##### Install Libraries #####"
 # FS Webcam
 sudo apt-get install fswebcam -y || error_exit "Failure to install fswebcam (USB Camera support)"
