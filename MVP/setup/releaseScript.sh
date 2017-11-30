@@ -39,8 +39,8 @@ sudo chmod +x $TARGET/setup/releaseScript_Test.sh
 sudo chmod +x $TARGET/setup/releaseScript_Final.sh
 
 # Comment out the next wo lines for complete automatic build, else will exit here
-echo  "###### Exit without running release ######"
-exit 0
+#echo  "###### Exit without running release ######"
+#exit 0
 
 echo  "###### Install CouchDB ######"
 sudo $TARGET/setup/releaseScript_DB || error_exit "Failure installing CouchDB"
