@@ -47,7 +47,7 @@ echo $(date +"%D %T") "CouchDB Install"
 
 # Create log directory
 cd $TARGET
-mkdir -p logs
+mkdir -p /home/pi/MVP/logs
 
 # start database
 chmod +x $TARGET/scripts/startCouchDB.sh
