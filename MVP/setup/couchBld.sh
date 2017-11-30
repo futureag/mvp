@@ -40,5 +40,5 @@ sudo chown -R couchdb:couchdb /home/couchdb
 cd /home/couchdb/etc
 
 # Clean up
-sudo rm /home/pi/erlang_solutions.asc
-sudo rm /home/pi/apache-couchdb-2.1.0.tar.gz
+#sudo rm /home/pi/erlang_solutions.asc
+#sudo rm /home/pi/apache-couchdb-2.1.0.tar.gz
