@@ -59,5 +59,11 @@ chmod +x $CMD
 $CMD
 echo $(date +"%D %T") "Cron loaded"
 
+echo "##### Start Web Server ####"
+CMD=/home/pi/MVP/scripts/startServer.sh
+chmod +x $CMD
+$CMD
+echo $(date +"%D %T") "Web Server Started"
+
 echo $(date +"%D %T") "Final Config Complete"
 
