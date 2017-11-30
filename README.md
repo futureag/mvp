@@ -138,7 +138,7 @@ echo $(date +"%D %T") "Directory built"
 cd $EXTRACT
 
 # Download from Github
-wget $GITHUB -O mvp.zip || error_exit "Failure to download zip file"
+wget -N $GITHUB -O mvp.zip || error_exit "Failure to download zip file"
 echo $(date +"%D %T") "MVP Github downloaded"
 
 cd $EXTRACT
