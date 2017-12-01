@@ -75,6 +75,7 @@ chmod +x $TARGET/scripts/render.sh
 chmod +x $TARGET/scripts/webcam.sh
 chmod +x $TARGET/scripts/startServer.sh
 chmod +x $TARGET/scripts/stopServer.sh
+chmod +x $TARGET/scripts/startup.sh
 
 #Create variables
 # Build the environment information
