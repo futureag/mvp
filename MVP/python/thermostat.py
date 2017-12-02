@@ -50,7 +50,7 @@ def adjustThermostat(temp):
             logData("Exhaust Fan", "Success", "state", "Off", "Current Temp: " + str(temp))
             print ("Fan state - Off")
 # Save out changed fan state
-        tmp=variable.var
+        tmp=variable.env
         tmp[_priorFanOn]=currentFanOn
         setVariable('priorFanOn', currentFanOn)
 
