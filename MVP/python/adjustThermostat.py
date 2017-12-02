@@ -12,7 +12,7 @@ try:
     adjustThermostat(temp)  
 except IOError as e:
     print("Failure to get temperature, no sensor found; check pins and sensor")
-    logData('si7921-top', 'Failure', 'temperature', "", str(e))
+    logData('si7021-top', 'Failure', 'temperature', "", str(e))
 
   
     
