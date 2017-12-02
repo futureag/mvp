@@ -31,7 +31,7 @@ def saveVars(dict):
 def setVariable(name, value):
     import variable as var
     var.env[name]=value
-    saveVar(var.env)
+    saveEnv(var.env)
     
 def delVariable(name):
     import variable as var
