@@ -25,13 +25,13 @@ def delEnv(name):
     del env.env[name]
     saveEnv(env.env)
 
-def saveVars(dict):
+def saveVar(dict):
     saveDict('env', var_file, dict)
 
 def setVariable(name, value):
     import variable as var
     var.env[name]=value
-    saveEnv(var.env)
+    saveVar(var.env)
     
 def delVariable(name):
     import variable as var
