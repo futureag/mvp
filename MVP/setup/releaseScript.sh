@@ -33,6 +33,7 @@ echo "###### Update the system ######"
 sudo apt-get update
 
 echo "###### Set Permissions ######"
+sudo chown -R pi /home/pi/MVP
 sudo chmod +x $TARGET/setup/releaseScript_DB.sh
 sudo chmod +x $TARGET/setup/releaseScript_Local.sh
 sudo chmod +x $TARGET/setup/releaseScript_Test.sh
