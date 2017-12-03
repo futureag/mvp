@@ -34,20 +34,5 @@ CRON_LOG=/home/pi/MVP/logs/cron.log
 # Take a USB camera picture one minute after the hour from 6am to 10pm
 1 6-22 * * * $MVP_SCRIPTS/webcam.sh >> $CRON_LOG 2>&1
 
-# Take a Raspberry picture one minute after the hour from 6am to 10pm
-2 6-22 * * * python $PY_PATH/getImage.py >> $CRON_LOG 2>&1
-
 # Render the data for the website
 10 * * * * $MVP_SCRIPTS/render.sh >> $CRON_LOG 2>&1
-
-# Send out a mmqt message with the temp every minute
-*/1 * * * * python $PY_PATH/pingTemp.py >> $CRON_LOG 2>&1
-
-# Send a tween every noon
-0 12 * * * python $PY_PATH/tweet.py >> $CRON_LOG 2>&1
-
-# Check the reservoir level 30 minutes after every hour
-30 * * * * python $PY_PATH/reservoir.py >> $CRON_LOG 2>&1
-
-# Do image analysis 5 minutes after the hour between 6 and 10pm
-5 6-22 * * * $SCRIPT_PATH/processImage.sh >> $CRON_LOG 2>&1
