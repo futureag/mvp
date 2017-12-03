@@ -86,4 +86,13 @@ echo  $(date +"%D %T") "Environment variables built"
 python $PYTHON/buildVariables.py || error_exit "Failure to build state variables"
 echo  $(date +"%D %T") "State variables built"
 
+echo "##### Make Pi owner of MVP ####"
+sudo chown -R pi:pi /home/pi/MVP
+
+echo "##### Start Web Server - needed for Testing ####"
+CMD=/home/pi/MVP/scripts/startServer.sh
+chmod +x $CMD
+$CMD
+echo $(date +"%D %T") "Web Server Started"
+
 exit 0

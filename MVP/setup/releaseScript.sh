@@ -43,7 +43,7 @@ sudo chmod +x $TARGET/setup/releaseScript_Final.sh
 #exit 0
 
 echo  "###### Install CouchDB ######"
-sudo $TARGET/setup/releaseScript_DB.sh || error_exit "Failure installing CouchDB"
+$TARGET/setup/releaseScript_DB.sh || error_exit "Failure installing CouchDB"
 
 echo  "###### Install Libraries and Local changes ######"
 $TARGET/setup/releaseScript_Local.sh || error_exit "Failure installing CouchDB"

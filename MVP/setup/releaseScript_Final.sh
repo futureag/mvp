@@ -27,14 +27,10 @@ error_exit()
 ########### Final configuration changes ######################
 
 echo "##### Start Final Configuration Changes #####"
-
-# make Pi owner of MVP
-sudo chown -R pi /home/pi/MVP
-
 # Change CouchDB for access on network
 # modify /home/couchdb/etc/local.ini
 COUCH=/home/couchdb/etc/local.ini
-COUCH2=/home/pi/scripts/test2.txt
+COUCH2=/home/pi/test2.txt
 if grep -q "bind_address = 0.0.0.0" $COUCH;
 then
 	echo $COUCH" already has bind address"
@@ -58,16 +54,9 @@ else
 fi
 
 echo "##### Load Cron ####"
-CMD=/home/pi/MVP/scripts/cron.sh
+CMD=$TARGET/scripts/cron.sh
 chmod +x $CMD
 $CMD
-echo $(date +"%D %T") "Cron loaded"
-
-echo "##### Start Web Server ####"
-CMD=/home/pi/MVP/scripts/startServer.sh
-chmod +x $CMD
-$CMD
-echo $(date +"%D %T") "Web Server Started"
 
 echo $(date +"%D %T") "Final Config Complete"
 
