@@ -25,18 +25,18 @@ def delEnv(name):
     del env.env[name]
     saveEnv(env.env)
 
-def saveVar(dict):
+def saveVars(dict):
     saveDict('env', var_file, dict)
 
 def setVariable(name, value):
     import variable as var
     var.env[name]=value
-    saveVar(var.env)
+    saveVars(var.env)
     
 def delVariable(name):
     import variable as var
     del var.env[name]
-    saveVar(var.env)    
+    saveVars(var.env)    
     
 if __name__=="__main__":
     test1='test1'
