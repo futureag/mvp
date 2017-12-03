@@ -30,13 +30,13 @@ echo "##### Start Final Configuration Changes #####"
 # Change CouchDB for access on network
 # modify /home/couchdb/etc/local.ini
 COUCH=/home/couchdb/etc/local.ini
-COUCH2=/home/pi/scripts/test2.txt
+COUCH2=/home/pi/test2.txt
 if grep -q "bind_address = 0.0.0.0" $COUCH;
 then
 	echo $COUCH" already has bind address"
 else
 	sed -e 's/;bind_address = 127.0.0.1/bind_address = 0.0.0.0/' $COUCH > $COUCH2
-	sudo mv -f $COUCH2 $COUCH || error_exit "Failure to modify "$COUCH
+	sudo mv -f $COUCH2 $COUCH
 	echo "bind address added to "$COUCH
 fi
 
@@ -49,15 +49,14 @@ then
 	echo $RC_LOCAL" already has startup command"
 else
 	sed -e 's/exit 0/\/home\/pi\/MVP\/scripts\/startup.sh'\\n\\'nexit 0/' $RC_LOCAL > $RC_LOCAL2
-	sudo mv -f $RC_LOCAL2 $RC_LOCAL || error_exit "Failure to modify rc.local"
+	sudo mv -f $RC_LOCAL2 $RC_LOCAL
 	echo "startup.sh added to "$RC_LOCAL
 fi
 
 echo "##### Load Cron ####"
-CMD=/home/pi/MVP/scripts/cron.sh
+CMD=$TARGET/scripts/cron.sh
 chmod +x $CMD
-$CMD || error_exit "Failure to modify cron"
-echo $(date +"%D %T") "Cron loaded"
+$CMD
 
 echo $(date +"%D %T") "Final Config Complete"
 
