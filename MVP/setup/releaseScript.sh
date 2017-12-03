@@ -33,7 +33,6 @@ echo "###### Update the system ######"
 sudo apt-get update
 
 echo "###### Set Permissions ######"
-sudo chown -R pi /home/pi/MVP
 sudo chmod +x $TARGET/setup/releaseScript_DB.sh
 sudo chmod +x $TARGET/setup/releaseScript_Local.sh
 sudo chmod +x $TARGET/setup/releaseScript_Test.sh
@@ -47,13 +46,13 @@ echo  "###### Install CouchDB ######"
 sudo $TARGET/setup/releaseScript_DB.sh || error_exit "Failure installing CouchDB"
 
 echo  "###### Install Libraries and Local changes ######"
-sudo $TARGET/setup/releaseScript_Local.sh || error_exit "Failure installing CouchDB"
+$TARGET/setup/releaseScript_Local.sh || error_exit "Failure installing CouchDB"
 
 echo  "###### Test ######"
-sudo $TARGET/setup/releaseScript_Test.sh || error_exit "Failure installing CouchDB"
+$TARGET/setup/releaseScript_Test.sh || error_exit "Failure installing CouchDB"
 
 echo  "###### Final Configuration ######"
-sudo $TARGET/setup/releaseScript_Final.sh || error_exit "Failure installing CouchDB"
+$TARGET/setup/releaseScript_Final.sh || error_exit "Failure installing CouchDB"
 
 echo "##### Release Install Completed Successfully, You should reboot the system #####"
 

@@ -27,6 +27,10 @@ error_exit()
 ########### Final configuration changes ######################
 
 echo "##### Start Final Configuration Changes #####"
+
+# make Pi owner of MVP
+sudo chown -R pi /home/pi/MVP
+
 # Change CouchDB for access on network
 # modify /home/couchdb/etc/local.ini
 COUCH=/home/couchdb/etc/local.ini

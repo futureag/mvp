@@ -42,7 +42,7 @@ sudo useradd -d /home/couchdb couchdb
 # Install Database
 chmod +x $TARGET/setup/$COUCH || error_exit "Failure setting permissions "$COUCH
 echo $(date +"%D %T") "Run permissions set"
-bash $TARGET/setup/$COUCH || error_exit "Failure building CouchDB"
+$TARGET/setup/$COUCH || error_exit "Failure building CouchDB"
 echo $(date +"%D %T") "CouchDB Install"
 
 # Create log directory
@@ -50,13 +50,13 @@ cd $TARGET
 mkdir -p /home/pi/MVP/logs
 
 # start database
-chmod +x $TARGET/scripts/startCouchDB.sh
+sudo chmod +x $TARGET/scripts/startCouchDB.sh
 $TARGET/scripts/startCouchDB.sh
 
 sleep 10
 
 echo "##### Finish Initianization of CouchDB #####"
-chmod +x $TARGET/setup/couchInit.sh || error_exit "Failure setting permissions "$COUCH
+sudo chmod +x $TARGET/setup/couchInit.sh || error_exit "Failure setting permissions "$COUCH
 $TARGET/setup/couchInit.sh
 
 
