@@ -53,7 +53,8 @@ mkdir -p /home/pi/MVP/logs
 sudo chmod +x $TARGET/scripts/startCouchDB.sh
 $TARGET/scripts/startCouchDB.sh
 
-sleep 10
+echo "##### Give CouchDB some time to start before proceeding #####"
+sleep 45
 
 echo "##### Finish Initianization of CouchDB #####"
 sudo chmod +x $TARGET/setup/couchInit.sh || error_exit "Failure setting permissions "$COUCH
