@@ -73,8 +73,8 @@ Code follows the board number convention.
 >
 ### Software Build
 
-The build scripts are the documentation.  If you want to build things yourself, follow the scripts (MVP/setup).
-The initial script is not in Github, as the script extracts the files from Github and changes the permissions on /home/pi/MVP/setup/releaseScript.sh.  
+The build scripts are the documentation.  If you want to build things yourself, follow the scripts (/home/pi/MVP/setup).
+The initial script is not in Github, as the script extracts the files from Github and changes the permissions on /home/pi/MVP/setup/releaseScript.sh.  From within your Raspberry Pi, cut and paste the following lines of code to to a text file and name is buildScript.sh.  Then change, the permissions to make it executable (from a File Manager, right click on the file and select "Properties".  In the "Permissions" tab, under "Execute", select "Anyone" and then click "OK").  Then open a terminal window and type in "<path to your file>/buildScript.sh.   
 ```
 #!/bin/sh
 
