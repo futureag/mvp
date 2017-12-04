@@ -1,11 +1,35 @@
-#!/bin/bash
-# Validation of the MVP 3.0 directory structure and code
+#!/bin/sh
+
+# Validation script
+# Author: Howard Webb
+# Date: 11/16/2017
+
+#######################################
+
+TARGET=/home/pi/MVP
+PYTHON=$TARGET/python
+
+##### Error Handling Function #####
+
+# Declarations
+RED='\033[31;47m'
+NC='\033[0m'
+
+# Exit on error
+error_exit()
+{
+	echo ${RED} $(date +"%D %T") "${PROGNAME}: ${1:="Unknown Error"}" ${NC} 1>&2
+	exit 1
+}
+
+#####################################
+
+echo "##### Validation of the MVP 3.0 directory structure and code ####"
 
 RED='\033[0;31m'
 NC='\033[0m'
 
 printf "MVP 1.0 Validation script\n"
-printf "If any ${RED}RED${NC}, stop and fix it, then re-run this script\n"
 printf "\n---Check for directories---\n"
 
 main_dir=/home/pi/MVP
@@ -16,8 +40,8 @@ cd  $dir &> /dev/null
 if [ $? = 0 ]
 then
     printf "$dir OK\n"
-else
-    printf "${RED}$dir not found, extract from Github${NC}\n"
+else 
+    error_exit "MVP Directory not found, failed to extract from Github"
 fi
 
 dir=$main_dir/scripts
@@ -26,16 +50,7 @@ if [ $? = 0 ]
 then
     printf "$dir OK\n"
 else
-    printf "${RED}$dir not found, extract from Github${NC}\n"
-fi
-
-dir=$ui_dir
-cd  $dir &> /dev/null
-if [ $? = 0 ]
-then
-    printf "$dir OK\n"
-else
-    printf "${RED}$dir not found, extract from Github${NC}\n"
+    error_exit "Scripts directory not found, failed to extract from Github"
 fi
 
 printf "\n---Check CouchDB ---\n"
@@ -44,7 +59,7 @@ if [ $? = 0 ]
 then
     printf "CouchDB OK \n"
 else
-    printf "${RED}CouchDB not installed or running${NC}\n"
+    error_exit "CouchDB not Running"
 fi
 
 curl http://localhost:5984/mvp_sensor_data &> /dev/null
@@ -52,92 +67,60 @@ if [ $? = 0 ]
 then
     printf "Sensor database OK\n"
 else
-    printf "${RED}Sensor database not created${NC}\n"
+    error_exit "Sensor Database not found in CouchDB"
 fi
 
 curl http://localhost:5984/mvp_sensor_data/_design/doc &> /dev/null
 if [ $? = 0 ]
 then
-    printf "Design Doc installed OK\n"
+    printf "Design doc found in mvp_sensor_database"
 else
-    printf "${RED}Design doc not installed${NC}\n"
+    error_exit "Design doc not found in mvp_sensor_database"
 fi
 
 printf "\n---Test Sensors---\n"
 
+echo "##### Test si7021 ####"
 cmd=$main_dir/python/si7021.py
 python $cmd &> /dev/null
 if [ $? = 0 ]
 then
     printf "SI7021 OK\n"
 else
-    printf "${RED}$cmd not working or not installed${NC}\n"
+    error_exit "Failure testing si7021 sensor"
 fi
 
 printf "\n---Test Data Logger---\n"
 
-cmd=$main_dir/python/logSensors.py
-python $cmd &> /dev/null
-if [ $? = 0 ]
-then
-    printf "Sensor Logging OK\n"
-else
-    printf "${RED}$cmd not working or not installed${NC}\n"
-fi
-
-python $cmd
-
-#printf "\n---Check Output for good data, no Failures or missing values---\n"
-#read -p "Press Enter to continue"
+cmd2=$main_dir/python/logSensors.py
+printf "Logged sensor data"
 
 printf "\n---Test Actuators---\n"
+echo "##### Test Thermostat #####"
+cmd3=$main_dir/python/adjustThermostat.py
+python $cmd3 || error_exit "Failure testing thermostat"
+printf "Thermostat OK\n"
 
-cmd=$main_dir/python/adjustThermostat.py
-python $cmd &> /dev/null
-if [ $? = 0 ]
-then
-    printf "Thermostat OK\n"
-else
-    printf "${RED}$cmd not working or not installed${NC}\n"
-fi
+echo "##### Test Lights Off #####"
+cmd4=$main_dir/python/setLightOff.py
+python $cmd4 || error_exit "Failure testing Lights Off"
 
-cmd=$main_dir/python/setLightOff.py
-python $cmd &> /dev/null
-if [ $? = 0 ]
-then
-    printf "Set Lights Off OK\n"
-else
-    printf "${RED}$cmd not working or not installed${NC}\n"
-fi
+echo "##### Test Lights On #####"
+cmd5=$main_dir/python/setLightOn.py
+python $cmd5 || error_exit "Failure testing Lights On"
+echo "Lights On OK"
 
-cmd=$main_dir/python/setLightOn.py
-python $cmd &> /dev/null
-if [ $? = 0 ]
-then
-    printf "Set Lights On OK\n"
-else
-    printf "${RED}$cmd not working or not installed${NC}\n"
-fi
-
-cmd=$main_dir/scripts/webcam.sh
-bash $cmd &> /dev/null
-if [ $? = 0 ]
-then
-    printf "Webcam OK\n"
-else
-    printf "${RED}$cmd not working or not installed${NC}\n"
-fi
+echo "##### Test Webcam #####"
+cmd6=$main_dir/scripts/webcam.sh
+$cmd6 || error_exit "Failure testing Camera"
+printf "Webcam OK\n"
 
 printf "\n---Building website, if you got this far, there is some data---\n"
 
-cmd=$main_dir/scripts/render.sh
-$cmd &> /dev/null
-if [ $? = 0 ]
-then
-    printf "Website render OK\n"
-else
-    printf "${RED}$cmd not working or not installed${NC}\n"
-fi
+echo "##### Test Render #####"
+cmd7=$main_dir/scripts/render.sh
+#$cmd7 || error_exit "Failure rendering data to charts"
+printf "Website render OK\n"
 
 printf "\n---Done---\n"
 
