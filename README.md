@@ -1,6 +1,6 @@
 # MVP II
 
-NOTE: 11/27/2017 - The build is going through beta testing, but almost ready for release.  The goal is to have a single script that will extract and build the entire environment on a 'stretch' release of Raspbian.
+NOTE: 12/04/2017 - This is the release build of the MVP ver. 2.1.  The functionality is the same as ver 1, but there has been some cleaning up of the code and reorganization.  The goal of this package is to have a single script that will extract and build the entire environment on a 'stretch' release of Raspbian.
 
 ## Background 
 
@@ -13,6 +13,7 @@ The MVP (Minimal Viable Product) is a simplified version of the MIT OpenAg Food 
 
   - Persistent variables are now in Python files (env.py and variable.py).  Shelf has gone away.
   - Cron is loaded from a file, no longer needing to be edited.
+  - smbus2 has been substituted for smbus.  This version gives more precision to the si7021 sensor readings.
 
 ## Architecture:
 The MVP brain is mostly python scripts involed using cron as the scheduler.  
@@ -29,6 +30,7 @@ The Python is modular so additions and changes can easily be made without affect
   - Refresh charts and picture for the UI (render.sh)
 
 Data storage is in a csv formatted (without header) flat file (/home/pi/MVP/data/data.txt) - this will likely be deprected in the future.
+CouchDB is the main data storage system, and will provide easy replication to the cloud in the future.
 
 For more information on Cron [see:](https://docs.oracle.com/cd/E23824_01/html/821-1451/sysrescron-24589.html)
 
@@ -165,13 +167,14 @@ echo "##### Relsease Specific Build #####"
 chmod +x $TARGET/setup/releaseScript.sh || error_exit "Failure setting permissions on release script (check file exists in MVP/scripts)"
 echo $(date +"%D %T") "Run permissions set"
 
-# Comment out this line for auto build
-
 # Run script in download
 bash $TARGET/setup/releaseScript.sh || error_exit "Failure running release specific script"
 echo $(date +"%D %T") "Install Complete"
 
 ```
+## Manual Build
+The following scripts (in /home/pi/MVP/scripts) can be run separately and in sequence if any errors are encountered.  Look within the scripts for single commands.
+
 - releaseScript.sh calls the following scripts:
 - releaseScript_DB.sh - installs the CouchDB code
 - releaseScript_Local.sh - builds libraries, starts the database and initializes things
