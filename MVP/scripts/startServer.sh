@@ -8,5 +8,9 @@
 #Date: 7/15/2017
 
 #NOTE: The server must be started from the directory from which files are to be served
+sudo touch /home/pi/MVP/logs/server.log
+sudo chmod a+r /home/pi/MVP/logs/server.log
+sudo chmod a+w /home/pi/MVP/logs/server.log
+sudo chmod a+x /home/pi/MVP/logs/server.log
 cd /home/pi/MVP/web
-nohup python /home/pi/MVP/python/server_8000.py &>~/MVP/logs/server.log &
+nohup python /home/pi/MVP/python/server_8000.py &/home/pi/MVP/logs/server.log &
