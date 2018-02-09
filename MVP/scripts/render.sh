@@ -15,7 +15,7 @@ python_dir="/home/pi/MVP/python/"
 #Pipe ls of the webcam directory from most recent to latest
 # Then clip off only the last line
 # Finally trim the string to just the name and store in the variable (File Name)
-FN=$(ls -latr "$pic_dir" | tail -1 | awk '{print $NF}')
+FN=$(ls -ltr "$pic_dir" | tail -1 | awk '{print $NF}')
 
 #Check that got what expected
 echo "$pic_dir$FN"
