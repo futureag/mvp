@@ -9,5 +9,5 @@ sudo chmod a+r /home/pi/MVP/logs/couchdb.log
 sudo chmod a+w /home/pi/MVP/logs/couchdb.log
 sudo chmod a+x /home/pi/MVP/logs/couchdb.log
 
-nohup sudo -i -u couchdb /home/couchdb/bin/couchdb &/home/pi/MVP/logs/couchdb.log &
+nohup sudo -i -u couchdb /home/couchdb/bin/couchdb &> /home/pi/MVP/logs/couchdb.log &
 
