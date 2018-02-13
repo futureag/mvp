@@ -13,4 +13,4 @@ sudo chmod a+r /home/pi/MVP/logs/server.log
 sudo chmod a+w /home/pi/MVP/logs/server.log
 sudo chmod a+x /home/pi/MVP/logs/server.log
 cd /home/pi/MVP/web
-nohup python /home/pi/MVP/python/server_8000.py &/home/pi/MVP/logs/server.log &
+nohup python /home/pi/MVP/python/server_8000.py &> /home/pi/MVP/logs/server.log &
