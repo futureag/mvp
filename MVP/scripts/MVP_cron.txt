@@ -10,7 +10,7 @@ MAILTO=""
 PY_PATH=/home/pi/MVP/python
 
 # Path to the MVP scripts
-MVP_SCRIPT=/home/pi/MVP/scripts
+MVP_SCRIPTS=/home/pi/MVP/scripts
 
 # Path to other scripts
 SCRIPT_PATH=/home/pi/scripts
