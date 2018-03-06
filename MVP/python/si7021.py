@@ -1,9 +1,16 @@
 import smbus2, time
 
+# Temperature, Humidity sensor on the I2C bus
+# Author: Howard Webb
+# Data: 12/18/2017
+# Source taken from Adafruit and modified
+# Changed from smbus to smbus2 to improve precision
 
 address = 0x40
 rh_no_hold = 0xf5
 previous_temp = 0xe0
+
+err=None
 
 
 class si7021(object):
@@ -38,26 +45,50 @@ class si7021(object):
         temp_c = 175.72/65536.0*temp_c-46.85
         return temp_c, percent_rh
 
-    def getHumidity(self):
-        self.write(rh_no_hold)
-        time.sleep(0.03)
-        percent_rh = self.read_word()
-        percent_rh = 125.0/65536.0*percent_rh-6.0
-        return percent_rh
+    def getHumidity(self, test=False):
+        try:
+            if test:
+                raise Exception("Humidity Test Error")
+            self.write(rh_no_hold)
+            time.sleep(0.03)
+            percent_rh = self.read_word()
+            percent_rh = 125.0/65536.0*percent_rh-6.0
+            return percent_rh
+        except Exception as e:
+            global err
+            err=str(e)
+            return None
+        
 
-    def getTempC(self):
-        self.write(previous_temp)
-        temp_c = self.read_word()
-        temp_c = 175.72/65536.0*temp_c-46.85
-        return temp_c
+    def getTempC(self, test=False):
+        try:
+            if test:
+                raise Exception("Temperature Test Error")
+            self.write(previous_temp)
+            temp_c = self.read_word()
+            temp_c = 175.72/65536.0*temp_c-46.85
+            return temp_c
+        except Exception as e:
+            global err
+            err=str(e)
+            return None
+
+    def getError(self):
+        global err
+        return err
 
     def test(self):
         'Self test of the object'
         print('\n*** Test SI7021 ***\n')
         print('Temp C: %.2f F' %self.getTempC())
         print('Humidity : %.2f %%' %self.getHumidity())
+        temp=self.getTempC()
+        if temp == None:
+            print(self.getError())
+        else:
+            print "No error caught"
 
 if __name__=="__main__":
     t=si7021()
-    t.test()
+    jsn=t.test()
     
