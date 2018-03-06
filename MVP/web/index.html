@@ -55,6 +55,7 @@ div.tab button.active {
   <button class="tablinks" onclick="openTab(event, 'Temperature')">Temperature</button>
   <button class="tablinks" onclick="openTab(event, 'Humidity')">Humidity</button>
   <button class="tablinks" onclick="openTab(event, 'Camera')">Camera</button>
+  <button class="tablinks" onclick="openTab(event, 'GIF')">GIF</button>
   <button class="tablinks" onclick="openTab(event, 'About')">About</button>
 </div>
 
@@ -80,6 +81,14 @@ div.tab button.active {
   </p>
 </div>
 
+<div id="GIF" class="tabcontent">
+  <h3>GIF</h3>
+  <p>Composite gif movie since start of trial</p>
+  <p>
+  <img src="plant.gif" alt="GIF movie since start of trial" style="width:640px;height:480px;">
+  </p>
+</div>
+
 <div id="About" class="tabcontent">
   <h3>About</h3>
   <p>The MVP (Minimal Viable Product) is a low cost, hydroponic growth chamber; designed as a simplified version of the <a target="_blank" href="https://www.media.mit.edu/groups/open-agriculture-openag/overview">MIT OpenAg Personal Food Computer</a>.  While this is a working hydroponic environment, the focus in on collecting research data.  This is an open source project based around a Raspberry Pi 'brain' and Python code, with a CouchDB repository.</p>
@@ -88,14 +97,6 @@ div.tab button.active {
 <p>Discussion is on the <a target="_blank" href="http://forum.openag.media.mit.edu">MIT OpenAg Forum</a></p>
 <p>Code is sourced on <a target="_blank" href="https://github.com/webbhm">Github</a></p>
 <p/>
-<h3>A special thanks to the early testers of the MVP</h3>
-<ul>
-<li>Melanie Shimano</li>
-<li>Drew Thomas</li>
-<li>Peter Webb</li>
-</ul>
-
-
 </div>
 
 <script>
