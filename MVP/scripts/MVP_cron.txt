@@ -1,7 +1,7 @@
-# Crontab jobs used by the MVP 
+# Crontab jobs used by the MVP
 # Author: Howard Webb
 # Date: 11/13/2017
-# Warning: This will overwrite any existing crontab, do not use if you use cron for other purposes
+# Warning: This will overwrite any existing crontab, do not use if you use cron$
 
 # Don't send email
 MAILTO=""
@@ -20,7 +20,7 @@ CRON_LOG=/home/pi/MVP/logs/cron.log
 
 # m h  dom mon dow   command
 # Check thermostat every minute
-*/1 * * * * python $PY_PATH/adjustThermostat.py >> $CRON_LOG 2>&1
+*/1 * * * * python $PY_PATH/Thermostat.py >> $CRON_LOG 2>&1
 
 # Turn lights on at 6AM
 0 6 * * * python $PY_PATH/setLightOn.py >> $CRON_LOG 2>&1
@@ -29,10 +29,17 @@ CRON_LOG=/home/pi/MVP/logs/cron.log
 30 22 * * * python $PY_PATH/setLightOff.py >> $CRON_LOG 2>&1
 
 # Log the sensors every 20 minutes
-*/20 * * * * python $PY_PATH/logSensors.py >> $CRON_LOG 2>&1
+*/20 * * * * python $PY_PATH/EnvObsv.py >> $CRON_LOG 2>&1
 
 # Take a USB camera picture one minute after the hour from 6am to 10pm
 1 6-22 * * * $MVP_SCRIPTS/webcam.sh >> $CRON_LOG 2>&1
 
+# Take a Raspberry picture one minute after the hour from 6am to 10pm
+2 6-22 * * * python $PY_PATH/getImage.py >> $CRON_LOG 2>&1
+
 # Render the data for the website
 10 * * * * $MVP_SCRIPTS/render.sh >> $CRON_LOG 2>&1
+
+5 0 * * * $MVP_SCRIPTS/makeGif.sh >> $CRON_LOG 2>&1
+
+
