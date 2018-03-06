@@ -1,6 +1,6 @@
-# MVP II
+# MVP III
 
-NOTE: 12/04/2017 - This is the release build of the MVP ver. 2.1.  The functionality is the same as ver 1, but there has been some cleaning up of the code and reorganization.  The goal of this package is to have a single script that will extract and build the entire environment on a 'stretch' release of Raspbian.
+NOTE: 3/5/2018- This is the development branch of the MVP ver. 3.0.  The functionality is basically the same as ver 1, but there has been some cleaning up of the code and reorganization.  
 
 ## Background 
 
@@ -11,10 +11,13 @@ The MVP (Minimal Viable Product) is a simplified version of the MIT OpenAg Food 
 
 ##Changes
 
-  - Persistent variables are now in Python files (env.py and variable.py).  Shelf has gone away.
-  - Cron is loaded from a file, no longer needing to be edited.
-  - smbus2 has been substituted for smbus.  This version gives more precision to the si7021 sensor readings.
-
+  - Switched to the latest data model
+  - All data is in a single CouchDB database and Manago is used for queries
+  - The thermostat can now optionally do an adjusted average temperature (requires an additional cron job)
+  - The humidity chart now has Dew Point calculated
+  - A daily plant growth gif is created
+  - No more file data storage
+  
 ## Architecture:
 The MVP brain is mostly python scripts involed using cron as the scheduler.  
 Python and cron are built into the Raspbian OS, and the Raspberry library to manipulate GPIO pins is already loaded.
@@ -23,13 +26,12 @@ The Python is modular so additions and changes can easily be made without affect
 
 - Scheduling Control (cron)
   - Image capture (webcam.sh)
-  - Log Sensors (logSensors.py)
+  - Log Sensors (EnvObsv.py)
   - Turn lights On (setLightOn.py)
   - Tirm lights Off (setLightOff.py)
-  - Check Temperature (adjustThermostat.py)
+  - Check Temperature (Thermostat.py)
   - Refresh charts and picture for the UI (render.sh)
 
-Data storage is in a csv formatted (without header) flat file (/home/pi/MVP/data/data.txt) - this will likely be deprected in the future.
 CouchDB is the main data storage system, and will provide easy replication to the cloud in the future.
 
 For more information on Cron [see:](https://docs.oracle.com/cd/E23824_01/html/821-1451/sysrescron-24589.html)
