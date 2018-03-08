@@ -41,17 +41,11 @@ else
 fi
 
 echo "##### Set startup script ####"
-# Modify /etc/rc.local
+# Replace rc.local and make executable
 RC_LOCAL=/etc/rc.local
-RC_LOCAL2=/home/pi/rc.local2
-if grep -q "startup.sh" $RC_LOCAL;
-then
-	echo $RC_LOCAL" already has startup command"
-else
-	sed -e 's/exit 0/\/home\/pi\/MVP\/scripts\/startup.sh'\\n\\'nexit 0/' $RC_LOCAL > $RC_LOCAL2
-	sudo mv -f $RC_LOCAL2 $RC_LOCAL
-	echo "startup.sh added to "$RC_LOCAL
-fi
+RC_LOCAL2=/home/pi/MVP/setup/rc.local
+yes | sudo cp -rf $RC_LOCAL2 $RC_LOCAL
+sudo chmod +x $RC_LOCAL
 
 echo "##### Load Cron ####"
 CMD=$TARGET/scripts/cron.sh
