@@ -85,8 +85,7 @@ class Relay(object):
         self.setState(Relay4, OFF)
 
 if __name__=="__main__":
-    r=Relay()
-    r.test()    
+    pass
     
             
     

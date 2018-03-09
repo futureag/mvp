@@ -4,24 +4,14 @@
 # Author: Howard Webb
 # Date: 3/5/2018
 
-import RPi.GPIO as GPIO
 from JsonUtil import makeEnvJson
 import CouchDB
-
-
+import Relay
 
 def setLightOff(test=False):
     "Check the time and determine if the lights need to be changed"
-    lightPin = 29
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BOARD)
-    print ("Turn lights Off")
-    GPIO.setup(lightPin, GPIO.OUT)
-# For the relaly board, use the first line
-# For the Sparkfun PowerSwitch tail (https://www.sparkfun.com/products/10747)
-# Uncomment the second line, and comment out the first
-    GPIO.output(lightPin, GPIO.LOW)
-#    GPIO.output(lightPin, GPIO.HIGH)
+    r=Relay.Relay()
+    r.setOff(Relay.Relay4)
     logState("Off", test)
 
 def logState(value, test=False):
