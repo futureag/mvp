@@ -3,10 +3,10 @@
 #Lights are wired into Relay #4 (Pin 29)
 
 import RPi.GPIO as GPIO
-from logData import logData
+from JsonUtil import makeEnvJson
+import CouchDB
 
-
-def setLightOn():
+def setLightOn(test=False):
     "Check the time and determine if the lights need to be changed"
     lightPin = 29
     GPIO.setwarnings(False)
@@ -18,9 +18,21 @@ def setLightOn():
 # Uncomment the second line, and comment out the first    
     GPIO.output(lightPin, GPIO.HIGH)
 #    GPIO.output(lightPin, GPIO.LOW)    
-    logData("LightChange", "Success", "light", "On", '')
+    logState("Off", test)
 
-setLightOn()    
+def logState(value, test=False):
+    status_qualifier='Success'
+    if test:
+        status_qualifier='Test'
+    jsn=makeEnvJson('State_Change', 'Lights', 'Top', 'State', value, 'Lights', status_qualifier)
+    CouchDB.logEnvObsvJSON(jsn)
+
+def test():
+    print "Test Lights On"
+    setLightOn(True)
+
+if __name__=="__main__":
+    setLightOn()    
     
             
     
