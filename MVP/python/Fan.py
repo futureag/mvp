@@ -15,7 +15,7 @@ class Fan(object):
 
     def __init__(self):
         self.relay=Relay()
-        self.fanRelay=Relay1
+        self.fanRelay=fanPin
 
     def setFanOn(self):
         self.relay.setState(self.fanRelay, ON)
