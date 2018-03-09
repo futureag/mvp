@@ -4,12 +4,13 @@
 
 from JsonUtil import makeEnvJson
 import CouchDB
-import Relay
+from Relay import *
 
 def setLightOn(test=False):
-    "Check the time and determine if the lights need to be changed"
-    r=Relay.Relay()
-    r.setOn(Relay.Relay4)
+    r=Relay()
+    r.setOn(lightPin, test)
+    if test:
+        print "Light On"
     logState("On", test)
 
 def logState(value, test=False):

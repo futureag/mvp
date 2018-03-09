@@ -13,6 +13,9 @@ Relay2 = 31
 Relay3 = 33 # LED
 Relay4 = 35 # Solenoid
 
+lightPin=29
+fanPin=35
+
 class Relay(object):
 
     def __init__(self):
@@ -23,56 +26,64 @@ class Relay(object):
         GPIO.setup(Relay3, GPIO.OUT)
         GPIO.setup(Relay4, GPIO.OUT)        
     
-    def setState(self, pin, state):
+    def setState(self, pin, state, test=False):
         '''Change state if different'''
-#        print "Current ", state, GPIO.input(pin)
+        if test:
+            print "Current ", state, GPIO.input(pin)
         if state==ON and not GPIO.input(pin):
             self.setOn(pin)
+            if test:
+                print "Pin: ", pin, " On"
         elif state==OFF and GPIO.input(pin):
             self.setOff(pin)
+            if test:
+                print "Pin: ", pin, " Off"
         else:        
- #           print("No Change")
-            pass
+            if test:
+                print "Pin: ", pin, " No change"
 
     def getState(self, pin):
         '''Get the current state of the pin'''
         state=GPIO.input(pin)
         return state
 
-    def setOff(self, pin):
+    def setOff(self, pin, test=False):
         GPIO.output(pin, GPIO.LOW)
 #            print("Pin ", pin, " Off")
 
-    def setOn(self, pin):
+    def setOn(self, pin, test=False):
         GPIO.output(pin, GPIO.HIGH)
 #            print("Pin ", pin, " On")
 
     def test(self):
-        print "Test 2"
+        
+        print "Test"
         print "Read #3 Unknown: ", self.getState(Relay3)
-        print "Turn On"
-        self.setState(Relay3, ON)
-        print "Turn On"
-        self.setState(Relay3, ON)
-
-#        print "Read #3 On: ", self.getState(Relay3)    
-        print "Turn Off"
-        self.setState(Relay3, OFF)
-        print "Turn Off"
-        self.setState(Relay3, OFF)
+        print "Test Fan and Lights"
+        print "Turn Fan On"
+        self.setOn(fanPin, True)
         time.sleep(5)
-#        print "Read #3 Off: ", self.getState(Relay3)    
-        print "Turn On"
-        self.setState(Relay3, ON)
-#        print "Read #3 On: ", self.getState(Relay3)
-        print "Turn Off"
-        self.setOff(Relay3)
+        print "Turn Light On"
+        self.setState(lightPin, True)
+        time.sleep(5)
+        print "Turn Fan Off"
+        self.setOff(lightPin, True)
+        time.sleep(5)        
+        print "Turn Light Off"
+        self.setOff(lightPin, True)
+        time.sleep(5)
 
-        print "Turn On"
-        self.setOn(Relay3)
-
-
-
+        print "Conditional Turn Fan On"
+        self.setState(fanPin, ON, True)
+        time.sleep(5)        
+        print "Conditional Turn Fan On"
+        self.setState(fanPin, ON, True)
+        time.sleep(5)
+        print "Conditional Turn Fan Off"
+        self.setState(fanPin, OFF, True)
+        time.sleep(5)        
+        print "Conditional Turn Fan Off"
+        self.setState(fanPin, OFF, True)
 
     def test1(self):
         self.setState(Relay1, ON)
@@ -85,7 +96,9 @@ class Relay(object):
         self.setState(Relay4, OFF)
 
 if __name__=="__main__":
-    pass
+    r=Relay()
+    r.test()
+
     
             
     
