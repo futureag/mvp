@@ -1,17 +1,44 @@
-#Check sensors and log to file
+""" Log standard MVP sensors
+"""
+
 from si7021 import *
-from logData import logData
+from Recorder import record_env
 
-si=si7021()
 
-try:
-    temp = si.getTempC()
-    logData("si7921_top", "Success", "temperature", "{:10.1f}".format(temp), '')
-except Exception as e:
-        logData("si7921_top", "Failure", "temperature", '', str(e))
+def log_sensors(test = True):
 
-try:
-    humid = si.getHumidity()
-    logData("si7021_top", "Success", "humidity", "{:10.1f}".format(humid), '')
-except Exception as e:
-        logData("si7921_top", "Failure", "humidity", '', str(e))
+    si=si7021()
+
+    try:
+        temp = si.getTempC()
+
+        status = 'Success'
+        if test:
+            status = 'Test'
+        record_env('Environment_Observation', 'Air', 'Top', 'Temperature', "{:10.1f}".format(temp), 'SI7021', status)                
+    except Exception as e:
+        status = 'Failure'
+        if test:
+            status = 'Test'
+        record_env('Environment_Observation', 'Air', 'Top', 'Temperature', '', 'SI7021', status, comment=str(e))                            
+
+    try:
+        humid = si.getHumidity()
+
+        status = 'Success'
+        if test:
+            status = 'Test'
+        record_env('Environment_Observation', 'Air', 'Top', 'Humidity', "{:10.1f}".format(humid), 'SI7021', status)                
+        
+    except Exception as e:
+        status = 'Failure'
+        if test:
+            status = 'Test'
+        record_env('Environment_Observation', 'Air', 'Top', 'Humidity', '', 'SI7021', status, comment=str(e))                                        
+            
+
+def test():
+    log_sensors(True)
+
+if __name__=="__main__":
+    test()    

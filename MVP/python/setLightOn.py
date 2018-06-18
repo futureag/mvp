@@ -1,21 +1,12 @@
 #!/usr/bin/python
 
 #Light Control
-#Controls the turning on and turning off of lights
-#Lights are wired into Relay #4 (Pin 29)
+#Thin wrapper over Light object so can easily call from bash script
+# Author: Howard Webb
+# Date: 3/29/2018
 
-import RPi.GPIO as GPIO
-from logData import logData
+from Light import Light
 
-
-def setLightOn():
-    "Check the time and determine if the lights need to be changed"
-    lightPin = 29
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BOARD)
-    print ("Turn lights On")
-    GPIO.setup(lightPin, GPIO.OUT)
-    GPIO.output(lightPin, GPIO.HIGH)
-    logData("LightChange", "Success", "light", "On", '')
-
-setLightOn()    
+if __name__=="__main__":
+    l=Light()
+    l.setLightOn()
