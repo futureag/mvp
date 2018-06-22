@@ -25,22 +25,37 @@ def recorder_test():
     from Recorder import test as rec_test
     rec_test()
 
+def fan_test():
+    from Fan import test as fan_test
 
-
+def thermostat_test():
+    from Thermostat import test as therm_test
 
 def test():
-    print "Recorder Test"
+    """Self test
+           Args:
+               None
+           Returns:
+               None
+           Raises:
+               None
+    """    
+    print "\nRecorder Test"
     recorder_test()
-    print "Test JSON Utility"
+    print "\nTest JSON Utility"
     json_test()
-    print "Test CouchDB"
+    print "\nTest CouchDB"
     couch_test()
-    print "Test Relay"
+    print "\nTest Relay"
     relay_test()
-    print "Test Lights"
+    print "\nTest Lights"
     light_test()
-    print "Test Sensor Logging"
+    print "\nTest Sensor Logging"
     sens_test()
+    print "\nTest Fan"
+    fan_test()
+    print "Test Thermostat"
+    thermostat_test()
 
 
 if __name__=="__main__":

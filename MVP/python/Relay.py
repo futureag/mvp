@@ -31,18 +31,18 @@ class Relay(object):
     def set_state(self, pin, state, test=False):
         '''Change state if different'''
         msg = "{}, {}, {}".format("Current ", state, GPIO.input(pin))
-        self.logger.info(msg)
+        self.logger.debug(msg)
         if state == ON and not GPIO.input(pin):
             self.set_on(pin)
             msg = "{} {} {}".format("Pin:", pin, " On")
-            self.logger.info(msg)
+            self.logger.debug(msg)
         elif state == OFF and GPIO.input(pin):
             self.set_off(pin)
             msg = "{} {} {}".format("Pin:", pin, " Off")
-            self.logger.info(msg)
+            self.logger.debug(msg)
         else:
             msg = "{} {} {}".format("Pin:", pin, " No Change")
-            self.logger.info(msg)
+            self.logger.debug(msg)
 
     def get_state(self, pin):
         '''Get the current state of the pin'''

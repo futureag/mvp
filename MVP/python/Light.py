@@ -19,9 +19,9 @@ class Light(object):
         if self.get_state()==0:
             self.r.set_on(lightPin, test)
             self.log_state("On", test)
-            self.logger.info('Light turned ON')            
+            self.logger.debug('Light turned ON')            
         else:
-            self.logger.info('Light already ON - no change')
+            self.logger.debug('Light already ON - no change')
             
         
     def set_off(self, test=False):
@@ -29,9 +29,9 @@ class Light(object):
         if self.get_state()==1:
             self.r.set_off(lightPin, test)
             self.log_state("Off", test)
-            self.logger.info('Light turned OFf')                        
+            self.logger.debug('Light turned OFf')                        
         else:
-            self.logger.info('Light already OFF - no change')
+            self.logger.debug('Light already OFF - no change')
 
     def get_state(self, test=False):
         '''Check the GPIO
