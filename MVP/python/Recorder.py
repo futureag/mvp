@@ -66,7 +66,9 @@ def record_env_router(msg):
            Raises:
                None
     """
-    recorders = [mqtt_recorder, display_recorder, log_env_obsv_json]
+# Test array
+#    recorders = [mqtt_recorder, display_recorder, log_env_obsv_json]
+    recorders = [log_env_obsv_json]
     for recorder in recorders:
         recorder(msg)
 

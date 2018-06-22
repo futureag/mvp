@@ -41,4 +41,4 @@ def test():
     log_sensors(True)
 
 if __name__=="__main__":
-    test()    
+    log_sensors()    
