@@ -41,7 +41,7 @@ def test():
     print "Adjust Thermostat None"
 
 if __name__ == "__main__":
-    test()
+    adjust_thermostat()
 
 
 
