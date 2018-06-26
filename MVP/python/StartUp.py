@@ -7,6 +7,7 @@
 from Light import *
 from env import env
 from datetime import datetime
+from LogUtil import get_logger
 
 def check(test=False):
     """Main function to run what needs to be done at restart
@@ -27,7 +28,9 @@ def checkLight(test=False):
         None
     Raises:
         None
-    """    
+    """
+
+    logger = get_logger()
     # Get times from env and split into components
     s=env['Lights']['On']
     s=s.split(':')
@@ -37,18 +40,16 @@ def checkLight(test=False):
     t=datetime.now()
     st=t.replace(hour=int(s[0]), minute=int(s[1]), second=int(s[2]))
     et=t.replace(hour=int(e[0]), minute=int(e[1]), second=int(e[2]))
-    if test:
-        print "Start Time: ", st
-        print "End Time: ", et
+    msg = "{} {} {} {}".format("Start Time: ", st, "End Time: ", et)
+    logger.debug(msg)
     l=Light()
     msg="Lights should be On"
     if (st < datetime.now()) and (et > datetime.now()):
-        l.set_on()
+        l.set_on(test)
     else:
         msg="Lights should be Off"
         l.set_off(test)
-    if test:
-        print msg
+    logger.debug(msg)
 
 def test():
     """Self check function
@@ -80,5 +81,5 @@ def test():
              
 
 if __name__=="__main__":
-    check(True)
+    check()
      
