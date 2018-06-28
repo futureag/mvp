@@ -9,4 +9,4 @@ from Light import Light
 
 if __name__=="__main__":
     l=Light()
-    l.setLightOff()
+    l.set_off()
