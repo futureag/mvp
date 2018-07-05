@@ -32,10 +32,10 @@ CRON_LOG=/home/pi/MVP/logs/cron.log
 */20 * * * * $MVP_SCRIPTS/logData.py >> $CRON_LOG 2>&1
 
 # Take a USB camera picture one minute after the hour from 6am to 10pm
-1 6-22 * * * $MVP_SCRIPTS/webcam.sh >> $CRON_LOG 2>&1
+1 6-22 * * * $MVP_SCRIPTS/Webcam.sh >> $CRON_LOG 2>&1
 
 # Render the data for the website
-10 * * * * $MVP_SCRIPTS/render.sh >> $CRON_LOG 2>&1
+10 * * * * $MVP_SCRIPTS/Render.sh >> $CRON_LOG 2>&1
 
 # Check CouchDB heartbeat
-10 * * * * $MVP_SCRIPTS/heartbeat.sh >> $CRON_LOG 2>&1
+10 * * * * $MVP_SCRIPTS/Heartbeat.sh >> $CRON_LOG 2>&1
