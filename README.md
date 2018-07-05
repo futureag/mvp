@@ -1,6 +1,10 @@
-# MVP II
+# MVP III
 
-NOTE: 12/04/2017 - This is the release build of the MVP ver. 2.1.  The functionality is the same as ver 1, but there has been some cleaning up of the code and reorganization.  The goal of this package is to have a single script that will extract and build the entire environment on a 'stretch' release of Raspbian.
+Change Log: 2018/07/05
+  - Major change to the data JSON structure, this should be the final version
+  - Removed SI7021 dependency on smbus, replaced with python-periphery
+  - File and method name changes for consistency with the python code standard
+  - Add standard Python logging
 
 ## Background 
 
@@ -9,12 +13,6 @@ It is mostly a collection of python code that runs on a Raspberry Pi (or similar
 
 The MVP (Minimal Viable Product) is a simplified version of the MIT OpenAg Food Computer.
 
-##Changes
-
-  - Persistent variables are now in Python files (env.py and variable.py).  Shelf has gone away.
-  - Cron is loaded from a file, no longer needing to be edited.
-  - smbus2 has been substituted for smbus.  This version gives more precision to the si7021 sensor readings.
-
 ## Architecture:
 The MVP brain is mostly python scripts involed using cron as the scheduler.  
 Python and cron are built into the Raspbian OS, and the Raspberry library to manipulate GPIO pins is already loaded.
@@ -22,14 +20,13 @@ Python and cron are built into the Raspbian OS, and the Raspberry library to man
 The Python is modular so additions and changes can easily be made without affecting the whole system.
 
 - Scheduling Control (cron)
-  - Image capture (webcam.sh)
-  - Log Sensors (logSensors.py)
-  - Turn lights On (setLightOn.py)
-  - Tirm lights Off (setLightOff.py)
-  - Check Temperature (adjustThermostat.py)
-  - Refresh charts and picture for the UI (render.sh)
+  - Image capture (Webcam.sh)
+  - Log Sensors (LogSensors.py)
+  - Turn lights On (LightOn.py)
+  - Tirm lights Off (LightOff.py)
+  - Check Temperature (Thermostat.py)
+  - Refresh charts and picture for the UI (Render.sh)
 
-Data storage is in a csv formatted (without header) flat file (/home/pi/MVP/data/data.txt) - this will likely be deprected in the future.
 CouchDB is the main data storage system, and will provide easy replication to the cloud in the future.
 
 For more information on Cron [see:](https://docs.oracle.com/cd/E23824_01/html/821-1451/sysrescron-24589.html)
@@ -40,7 +37,7 @@ For more information on Cron [see:](https://docs.oracle.com/cd/E23824_01/html/82
 There are two fans, one for circulation and one for exhausting excess heat  These can run off the Raspberry's 5V or from a external 12V transformer
 
 **Temperature/Humidity Sensor**
-A si7021 sensor on an I2C bus is used for temperature and humidity.  See the following for (instructions)[https://learn.adafruit.com/adafruit-si7021-temperature-plus-humidity-sensor/overview] on use and wiring.
+A SI7021 sensor on an I2C bus is used for temperature and humidity.  See the following for (instructions)[https://learn.adafruit.com/adafruit-si7021-temperature-plus-humidity-sensor/overview] on use and wiring.
 
 **Webcam**
 A standard USB camera is used for imaging (though the Raspberry Pi camera is an option).  See [here](https://www.raspberrypi.org/documentation/usage/webcams/) for instructions
@@ -53,8 +50,8 @@ Refer to the following [diagram](https://docs.particle.io/datasheets/raspberrypi
 
 Code follows the board number convention.
 
-- '3 - SDA to si7021'
-- '5 - SCL to si7021'
+- '3 - SDA to SI7021'
+- '5 - SCL to SI7021'
 - '29 - light relay (relay #4)'
 - '31 - (reserved for relay #3)'
 - '33 - (reserved for relay #2)'
@@ -104,8 +101,8 @@ NC='\033[0m'        # Define default text
 
 EXTRACT=/home/pi/unpack    # Working directory for download and unzipping
 TARGET=/home/pi/MVP       # Location for MVP
-RELEASE=OpenAg-MVP-II             # Package (repository) to download 
-GITHUB=https://github.com/webbhm/$RELEASE/archive/master.zip    # Address of Github archive
+RELEASE=mvp             # Package (repository) to download 
+GITHUB=https://github.com/futureag/$RELEASE/archive/mvp-1.3.zip    # Address of Github archive
 
 echo $EXTRACT
 echo $TARGET

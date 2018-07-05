@@ -1,16 +1,16 @@
 """ Log standard MVP sensors
 """
 
-from si7021 import *
+from SI7021 import *
 from Recorder import record_env
 
 
 def log_sensors(test = True):
 
-    si=si7021()
+    si=SI7021()
 
     try:
-        temp = si.getTempC()
+        temp = si.get_tempC()
 
         status = 'Success'
         if test:

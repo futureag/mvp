@@ -5,7 +5,7 @@
 
 """
 from Fan import Fan
-from si7021 import si7021
+from SI7021 import SI7021
 
 
 def adjust_thermostat(temp=None, test=False):
@@ -18,8 +18,8 @@ def adjust_thermostat(temp=None, test=False):
                None
     """
     if temp == None:
-        temp_sensor = si7021()
-        temp = temp_sensor.getTempC()
+        temp_sensor = SI7021()
+        temp = temp_sensor.get_tempC()
     fan = Fan()
     fan.adjust(temp, test)
 

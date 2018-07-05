@@ -62,7 +62,7 @@ else
     error_exit "CouchDB not Running"
 fi
 
-curl http://localhost:5984/mvp_sensor_data &> /dev/null
+curl http://localhost:5984/mvp_test &> /dev/null
 if [ $? = 0 ]
 then
     printf "Sensor database OK\n"
@@ -70,55 +70,47 @@ else
     error_exit "Sensor Database not found in CouchDB"
 fi
 
-curl http://localhost:5984/mvp_sensor_data/_design/doc &> /dev/null
-if [ $? = 0 ]
-then
-    printf "Design doc found in mvp_sensor_database"
-else
-    error_exit "Design doc not found in mvp_sensor_database"
-fi
-
 printf "\n---Test Sensors---\n"
 
 echo "##### Test si7021 ####"
-cmd=$main_dir/python/si7021.py
+cmd=$main_dir/python/SI7021.py
 python $cmd &> /dev/null
 if [ $? = 0 ]
 then
     printf "SI7021 OK\n"
 else
-    error_exit "Failure testing si7021 sensor"
+    error_exit "Failure testing SI7021 sensor"
 fi
 
 printf "\n---Test Data Logger---\n"
 
-cmd2=$main_dir/python/logSensors.py
+cmd2=$main_dir/python/LogSensors.py
 printf "Logged sensor data"
 
 printf "\n---Test Actuators---\n"
 echo "##### Test Thermostat #####"
-cmd3=$main_dir/python/adjustThermostat.py
+cmd3=$main_dir/python/Thermostat.py
 python $cmd3 || error_exit "Failure testing thermostat"
 printf "Thermostat OK\n"
 
 echo "##### Test Lights Off #####"
-cmd4=$main_dir/python/setLightOff.py
+cmd4=$main_dir/python/LightOff.py
 python $cmd4 || error_exit "Failure testing Lights Off"
 
 echo "##### Test Lights On #####"
-cmd5=$main_dir/python/setLightOn.py
+cmd5=$main_dir/python/LightOn.py
 python $cmd5 || error_exit "Failure testing Lights On"
 echo "Lights On OK"
 
 echo "##### Test Webcam #####"
-cmd6=$main_dir/scripts/webcam.sh
+cmd6=$main_dir/scripts/Webcam.sh
 $cmd6 || error_exit "Failure testing Camera"
 printf "Webcam OK\n"
 
 printf "\n---Building website, if you got this far, there is some data---\n"
 
 echo "##### Test Render #####"
-cmd7=$main_dir/scripts/render.sh
+cmd7=$main_dir/scripts/Render.sh
 #$cmd7 || error_exit "Failure rendering data to charts"
 printf "Website render OK\n"
 
