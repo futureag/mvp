@@ -20,7 +20,7 @@ def getResults():
     header={"Content-Type":"application/json"}
     ts = str('{:%Y-%m-%d %H:%M:%S}'.format(datetime.utcnow()))
 #    payload={"selector":{"start_date.timestamp":{"$lt":ts}, "status.status_qualifier":{"$eq": "Success"}, "activity_type":{"$eq":"Environmental_Observation"}, "subject.name":{"$eq": "Air"},"subject.location.name": {"$eq": "Left_Side"}, "$or":[{"subject.attribute.name": "Temperature"},{"subject.attribute.name": "Humidity"}], "fields":["start_date.timestamp", "subject.attribute.name", "subject.attribute.value"], "sort":[{"start_date.timestamp":"desc"}], "limit":250}
-    payload={"selector":{"start_date.timestamp":{"$lt":ts}, "status.status_qualifier":{"$eq": "Success"}, "activity_type":{"$eq":"Environmental_Observation"}, "subject.name":{"$eq": "Air"},"subject.location.name": {"$eq": "Left_Side"}, "$or":[{"subject.attribute.name":"Humidity"}, {"subject.attribute.name":"Temperature"}]}, "fields":["start_date.timestamp", "subject.attribute.name", "subject.attribute.value"], "sort":[{"start_date.timestamp":"desc"}], "limit":250}        
+    payload={"selector":{"start_date.timestamp":{"$lt":ts}, "status.status_qualifier":{"$eq": "Success"}, "activity_type":{"$eq":"Environmental_Observation"}, "subject.name":{"$eq": "Air"},"subject.location.name": {"$eq": "Top"}, "$or":[{"subject.attribute.name":"Humidity"}, {"subject.attribute.name":"Temperature"}]}, "fields":["start_date.timestamp", "subject.attribute.name", "subject.attribute.value"], "sort":[{"start_date.timestamp":"desc"}], "limit":250}        
     url='http://localhost:5984/mvp_test/_find'
     return requests.post(url, json=payload, headers=header)
 
