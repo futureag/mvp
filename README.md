@@ -5,6 +5,7 @@ Change Log: 2018/07/05
   - Removed SI7021 dependency on smbus, replaced with python-periphery
   - File and method name changes for consistency with the python code standard
   - Add standard Python logging
+  - Change retreival of geo information due to API deprecation
 
 ## Background 
 
@@ -65,8 +66,11 @@ Code follows the board number convention.
     - for localization (time, timezone)
     - wifi is established and connected
     - I2C has been enabled
+    - VNC is enabled for easy remote access
+    - Screen resolution is set to Mode 16 for proper VNC viewing
+    
 2. 32G SD card to hold data
-3. Sensors and relay are wired to the Pi.  If you try to run the code without sensors, some of it will error out (I/O Error, I noticed in the getTempC() function).  This will ripple up to error out the cron job for logSensorData.py.
+3. Sensors and relay are wired to the Pi.  If you try to run the code without sensors, some of it will error out (I/O Error, I noticed in the get_tempC() function).  This will ripple up to error out the cron job for LogSensor.py.
 >
 ### Software Build
 
@@ -86,6 +90,8 @@ The initial script is not in Github, as the script extracts the files from Githu
 # You have adjusted the Pi Preferences (Configuration)
 #   Enable the camera interface
 #   Enable I2C
+#   Enable VNC
+#   Set screen resolution to Mode 16
 #   Optionally (suggested) enable SSH, VCN and 1-Wire
 
 # Get the release from Github
