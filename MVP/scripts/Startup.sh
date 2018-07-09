@@ -13,6 +13,10 @@ echo Starting CouchDB
 # Start CouchDB
 /home/pi/MVP/scripts/startCouchDB.sh >> /home/pi/MVP/logs/startup.log 2>&1
 
+echo Starting Server
+# Start Server
+/home/pi/MVP/scripts/StartServer.sh >> /home/pi/MVP/logs/startup.log 2>&1
+
 echo Check Lights, etc
 # Run startup code
 python /home/pi/MVP/python/StartUp.py >> /home/pi/MVP/logs/startup.log 2>&1

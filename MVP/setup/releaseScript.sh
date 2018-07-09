@@ -33,10 +33,7 @@ echo "###### Update the system ######"
 sudo apt-get update
 
 echo "###### Set Permissions ######"
-sudo chmod +x $TARGET/setup/releaseScript_DB.sh
-sudo chmod +x $TARGET/setup/releaseScript_Local.sh
-sudo chmod +x $TARGET/setup/releaseScript_Test.sh
-sudo chmod +x $TARGET/setup/releaseScript_Final.sh
+sudo chmod +x $TARGET/setup/*.sh
 
 # Comment out the next wo lines for complete automatic build, else will exit here
 #echo  "###### Exit without running release ######"

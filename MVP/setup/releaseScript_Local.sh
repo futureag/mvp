@@ -1,8 +1,6 @@
 #!/bin/sh
 
 # Libraries and Local
-# Version for building CouchDB
-# Semi-generic script to get and install github archive
 # Author: Howard Webb
 # Date: 11/16/2017
 # Create directories
@@ -37,8 +35,8 @@ sudo apt-get install fswebcam -y || error_exit "Failure to install fswebcam (USB
 echo  $(date +"%D %T") "fswebcam intalled (supports USB camera"
 
 # Needed for I2C
-sudo pip install smbus2 || error_exit "Failure to install smbus (needed for si7021 temp sensor)"
-echo  $(date +"%D %T") "smbus installed (needed for si7021 temp sensor)"
+sudo pip install python-periphery || error_exit "Failure to install python-periphery (needed for si7021 temp sensor)"
+echo  $(date +"%D %T") "python-periphery installed (needed for si7021 temp sensor)"
 
 # Used for charting
 sudo pip install pygal|| error_exit "Failure to install pygal (needed for charting)"
@@ -71,26 +69,19 @@ echo $(date -u) "directories created"
 
 echo "##### Start Local file changes #####"
 # Make scripts executable
-chmod +x $TARGET/scripts/render.sh
-chmod +x $TARGET/scripts/webcam.sh
-chmod +x $TARGET/scripts/startServer.sh
-chmod +x $TARGET/scripts/stopServer.sh
-chmod +x $TARGET/scripts/startup.sh
+chmod +x $TARGET/scripts/*.sh
 
 #Create variables
 # Build the environment information
 
-python $PYTHON/buildEnv.py || error_exit "Failure to build environment variables"
-echo  $(date +"%D %T") "Environment variables built"
-
-python $PYTHON/buildVariables.py || error_exit "Failure to build state variables"
-echo  $(date +"%D %T") "State variables built"
+python $PYTHON/Initialize.py || error_exit "Failure to initialize MVP"
+echo  $(date +"%D %T") "MVP Initialized"
 
 echo "##### Make Pi owner of MVP ####"
 sudo chown -R pi:pi /home/pi/MVP
 
 echo "##### Start Web Server - needed for Testing ####"
-CMD=/home/pi/MVP/scripts/startServer.sh
+CMD=/home/pi/MVP/scripts/StartServer.sh
 chmod +x $CMD
 $CMD
 echo $(date +"%D %T") "Web Server Started"

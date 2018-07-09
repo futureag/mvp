@@ -15,7 +15,7 @@ def getResults(test=False):
     '''Run a Mango query to get the data'''
     ts = str('{:%Y-%m-%d %H:%M:%S}'.format(datetime.utcnow()))
     header={"Content-Type":"application/json"}
-    payload={"selector":{"start_date.timestamp":{"$lt":ts}, "status.status_qualifier":{"$eq": "Success"}, "activity_type":{"$eq":"Environmental_Observation"}, "subject.name":{"$eq": "Air"},"subject.location.name": {"$eq": "Top"},"subject.attribute.name": {"$eq": "Humidity"}}, "fields":["start_date.timestamp", "subject.attribute.value"], "sort":[{"start_date.timestamp":"desc"}], "limit":250}    
+    payload={"selector":{"start_date.timestamp":{"$lt":ts}, "status.status_qualifier":{"$eq": "Success"}, "activity_type":{"$eq":"Environment_Observation"}, "subject.name":{"$eq": "Air"},"subject.location.name": {"$eq": "Top"},"subject.attribute.name": {"$eq": "Humidity"}}, "fields":["start_date.timestamp", "subject.attribute.value"], "sort":[{"start_date.timestamp":"desc"}], "limit":250}    
     url='http://localhost:5984/mvp_test/_find'
     if test:
         print payload

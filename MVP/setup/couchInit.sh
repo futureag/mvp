@@ -18,11 +18,11 @@ curl -X PUT http://localhost:5984/_users
 curl -X PUT http://localhost:5984/_replicator
 curl -X PUT http://localhost:5984/_global_changes
 
-# Build sensor database and view script
-curl -X PUT http://localhost:5984/mvp_sensor_data
+# Build observation database and index
+curl -X PUT http://localhost:5984/mvp_test
 
-# To pull data from the database you need a view.  This is a specially named document in the data database.
+# Build index
 
-curl -X PUT http://localhost:5984/mvp_sensor_data/_design/doc --upload-file /home/pi/MVP/setup/view.txt
+curl -X PUT http://localhost:5984/mvp_test/_design/full_idx --upload-file /home/pi/MVP/setup/index.txt
 
 echo  $(date +"%D %T") "Finished building CouchDB - now running"

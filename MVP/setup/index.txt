@@ -1,0 +1,19 @@
+{
+  "_id": "_design/full_idx",
+  "language": "query",
+  "views": {
+    "full_idx": {
+      "map": {
+        "fields": {
+          "field.uuid": "asc",
+          "start_date.timestamp": "asc",
+          "status.status_qualifier": "asc",
+          "activity_type": "asc",
+          "subject.name": "asc",
+          "subject.location.name": "asc",
+          "subject.attribute.name": "asc"
+        }
+      }
+    }
+  }
+}

@@ -33,7 +33,7 @@ error_exit()
 
 echo "##### Start Testing #####"
 # Build some data
-python $PYTHON/logSensors.py || error_exit "Failure testing sensors"
+python $PYTHON/LogSensors.py || error_exit "Failure testing sensors"
 
 # Test the system and build some data
 chmod +x $TARGET/setup/Validate.sh

@@ -1,1 +1,0 @@
-{"_id":"_design/doc","language":"javascript","views":{"attribute_value":{"map":"function(doc) {\n\t\tif(doc.value && doc.attribute && doc.status == 'Success')\n\t   \t{\n\t\t\temit([doc.attribute, doc.name, doc.timestamp], doc);\n\t   \t}\n}"}}}
