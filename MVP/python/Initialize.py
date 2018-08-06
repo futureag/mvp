@@ -21,7 +21,7 @@ def initialize():
     """    
     env = {}
     env['field'] = get_field()
-    env['location'] = str(get_location())
+#    env['location'] = str(get_location())
     save_dictionary('env', env_file, env)
 
 def get_field(name='Field Name'):
