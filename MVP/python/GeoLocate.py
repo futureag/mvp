@@ -11,6 +11,7 @@ from requests import get
 import json
 
 def get_location():
+  return {}
     """Call a service that gets geo info for the router location
         Args: None
         Returns: None
