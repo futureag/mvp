@@ -5,32 +5,36 @@
 # This is a test of combining temp, humidity and dewpoint
 
 import pygal
-import requests
+from couchdb import Server
 import json
 from DewPoint import getDewPoint
 import pandas as pd
 import math
 from datetime import datetime
+from MVP_Util import UTCStrToLDT
 
 #Use a view in CouchDB to get the data
 #use the first key for attribute type
 #order descending so when limit the results will get the latest at the top
 
 def getResults():
-    header={"Content-Type":"application/json"}
-    ts = str('{:%Y-%m-%d %H:%M:%S}'.format(datetime.utcnow()))
-    payload={"selector":{"start_date.timestamp":{"$lt":ts}, "status.status_qualifier":{"$eq": "Success"}, "activity_type":{"$eq":"Environment_Observation"}, "subject.name":{"$eq": "Air"},"subject.location.name": {"$eq": "Top"}, "$or":[{"subject.attribute.name":"Humidity"}, {"subject.attribute.name":"Temperature"}]}, "fields":["start_date.timestamp", "subject.attribute.name", "subject.attribute.value"], "sort":[{"start_date.timestamp":"desc"}], "limit":250}        
-    url='http://localhost:5984/mvp_test/_find'
-    return requests.post(url, json=payload, headers=header)
+#    header={"Content-Type":"application/json"}
+    ts = datetime.utcnow().isoformat()[:19]
+    payload={"selector":{"start_date.timestamp":{"$lt":ts},"status.status_qualifier":{"$eq": "Success"}, "activity_type":{"$eq":"Environment_Observation"}, "subject.name":{"$eq": "Air"}, "$or":[{"subject.attribute.name":"Humidity"}, {"subject.attribute.name":"Temperature"}]}, "fields":["start_date.timestamp", "subject.attribute.name", "subject.attribute.value"], "sort":[{"start_date.timestamp":"desc"}], "limit":250}        
+    server = Server()
+    db_name = 'mvp_data'
+    db = server[db_name]
+    return db.find(payload)
 
 def cleanData(data, test=False):
     '''Flatten structure to three columns'''
     out=[]
-    for row in data.json()["docs"]:
+    for row in data:
 #        print row
         hold={}
         # bin the timestamp into 20 minute groups
-        d=datetime.strptime(row["start_date"]["timestamp"], '%Y-%m-%d %H:%M:%S')
+        # get only the first 19 characters of the timestamp
+        d=UTCStrToLDT(row["start_date"]["timestamp"])
         d=d.replace(second=0, minute=int(math.floor(d.minute/20)))
         hold['timestamp']=str(d)
         hold["name"]=row["subject"]["attribute"]["name"]
@@ -95,24 +99,23 @@ def buildChart(data, test=False):
 
 def getDewPointChart(test=False):
     data=getResults()
-    if data.status_code == 200:
-        print "Records: ", len(data.json()["docs"])
+    r_cnt = len(data)
+    if r_cnt>0:
+        print "Records: ", r_cnt
         data=cleanData(data, test)
-        if test:
-            print data
         buildChart(data, test)
     else:
-        print "No Data - Reason: ", data.reason
+        print "No Data"
 
 def test():
     data=getResults()
-    if data.status_code == 200:
-        print "Records: ", len(data.json()["docs"])
-        data=cleanData(data)
-        print data
-        buildChart(data)
+    r_cnt = len(data)
+    if r_cnt>0:
+        print "Records: ", r_cnt
+        data=cleanData(data, test)
+        buildChart(data, test)
     else:
-        print "No Data - Reason: ", data.reason
+        print "No Data"
 
 if __name__=="__main__":
     getDewPointChart()
