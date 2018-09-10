@@ -8,7 +8,7 @@ from env import env
 from Relay import *
 import time
 from LogUtil import get_logger
-from Recorder import record_env
+from CouchUtil import saveList
 
 class Fan(object):
     """Code associated with the exhaust fan"""
@@ -86,7 +86,7 @@ class Fan(object):
         status_qualifier = 'Success'
         if test:
             status_qualifier = 'Test'
-        record_env('State_Change', 'Fan', 'Side', 'State', value, 'Fan', status_qualifier)
+        saveList(['State_Change', '', 'Side', 'Fan', 'State', value, 'state', 'Fan', status_qualifier, ''])
 
 def test():
     """Self test
