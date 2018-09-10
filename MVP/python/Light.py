@@ -6,7 +6,7 @@
 
 from Relay import *
 from LogUtil import get_logger
-from Recorder import record_env
+from CouchUtil import saveList
 
 class Light(object):
 
@@ -46,7 +46,7 @@ class Light(object):
         status_qualifier='Success'
         if test:
             status_qualifier='Test'
-        record_env('State_Change', 'Lights', 'Top', 'State', value, 'Lights', status_qualifier)            
+        saveList(['State_Change','','Top', 'Lights', 'State', value, 'Lights', 'state', status_qualifier, ''])            
 
 def test():
     """
