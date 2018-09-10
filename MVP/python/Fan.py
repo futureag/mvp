@@ -58,7 +58,7 @@ class Fan(object):
         """
         self.logger.debug("In adjust")
         fan_state = self.relay.get_state(self.fan_relay)
-        target_temp = env['thermostat']['setPoint']
+        target_temp = env['thermostat']['targetTemp']
         msg = "{} {} {} {} {} {}".format("Temp:", temp, " Target Temp:", target_temp, " Fan State:", fan_state)
         self.logger.info(msg)
         if temp > target_temp and not fan_state:

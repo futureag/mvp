@@ -162,7 +162,7 @@ def saveList(doc):
     proc = {'Environment_Observation':processEnv, 'State_Change':processState, 'Agronomic_Activity':processAgro, 'Phenotype_Observation':processPheno}    
     # add timestamp and field_id
     timestamp = datetime.utcnow().isoformat()[:19]
-    doc.insert(0, env['field']['uuid'])
+    doc.insert(0, env['field']['field_id'])
     doc.insert(0, timestamp)
     # Use activity type to route processing
     rec = proc[doc[2]](doc)
