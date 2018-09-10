@@ -1,0 +1,4 @@
+{
+  "views": {
+    "trial_view": {
+      "map": "function (doc){if(doc.activity_type == 'Environment_Observation'&&doc.location.field=='8e89e414-0181-440a-9170-702434c8f400'){var trial_start = Date.parse('2018-07-22T12:34:55');var day = Date.parse(doc.start_date.timestamp);var trial_day = Math.floor((day - trial_start)/(1000 * 60 * 60 * 24));var wk = Math.ceil(trial_day/7);emit([doc.subject.attribute.name, wk, trial_day], doc.subject.attribute.value);};}","reduce": "_stats"}}}

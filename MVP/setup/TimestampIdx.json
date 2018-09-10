@@ -1,0 +1,20 @@
+{
+  "language": "query",
+  "views": {
+    "ts_view": {
+      "map": {
+        "fields": {
+          "start_date.timestamp": "asc"
+        }
+      },
+      "reduce": "_count",
+      "options": {
+        "def": {
+          "fields": [
+            "start_date.timestamp"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "language": "query",
+  "views": {
+    "date_sort_idx": {
+      "map": {
+        "fields": {
+          "start_date.timestamp": "asc"
+        }
+      }
+    },
+    "env_idx": {
+      "map": {
+        "fields": {
+          "location.field": "asc",
+          "start_date.timestamp": "asc",
+          "status.status_qualifier": "asc",
+          "activity_type": "asc",
+          "subject.name": "asc",
+          "subject.location.name": "asc",
+          "subject.attribute.name": "asc"
+        }
+      }
+    },
+    "pheno_idx": {
+      "map": {
+        "fields": {
+          "location.field": "asc",
+          "location.experiment": "asc",
+          "location.trial": "asc",
+          "location.plot": "asc",
+          "start_date.timestamp": "asc",
+          "status.status_qualifier": "asc",
+          "activity_type": "asc",
+          "subject.name": "asc",
+          "subject.location.name": "asc",
+          "subject.attribute.name": "asc"
+        }
+      }
+    }
+  }
+}
