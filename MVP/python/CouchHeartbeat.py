@@ -5,7 +5,6 @@
 """
 
 import os
-import requests
 from LogUtil import get_logger
 
 class CouchHeartbeat(object):
@@ -31,13 +30,13 @@ class CouchHeartbeat(object):
         Raises:
             None
         """
-        try:
-            request = requests.get('http://localhost:' + port)
-            if request.json()["couchdb"] == 'Welcome':
-                self.logger.info('Port: %s Couch Up' % (port))
-        except requests.ConnectionError as error:
-            self.logger.warning('Port: %s Couch Down %s' % (port, error))
-            restart()
+        cmd = 'curl -X GET http://localhost:5984'
+        ret = os.system(cmd)
+        if ret == 0:
+                self.logger.info('localhost Couch is Up')
+        else:
+            self.logger.warning('Couch is Down')
+            self.restart()
 
     def restart(self):
         """System restart (reboot)
