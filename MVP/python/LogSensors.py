@@ -2,10 +2,10 @@
 """
 
 from SI7021 import *
-from Recorder import record_env
+from CouchUtil import saveList
 
 
-def log_sensors(test = True):
+def log_sensors(test = False):
 
     si=SI7021()
 
@@ -15,26 +15,26 @@ def log_sensors(test = True):
         status = 'Success'
         if test:
             status = 'Test'
-        record_env('Environment_Observation', 'Air', 'Top', 'Temperature', "{:10.1f}".format(temp), 'SI7021', status)                
+        saveList(['Environment_Observation', '', 'Top', 'Air', 'Temperature', "{:10.1f}".format(temp), 'Farenheight', 'SI7021', status, ''])                
     except Exception as e:
         status = 'Failure'
         if test:
             status = 'Test'
-        record_env('Environment_Observation', 'Air', 'Top', 'Temperature', '', 'SI7021', status, comment=str(e))                            
+        saveList(['Environment_Observation', '', 'Top', 'Air', 'Temperature', '', 'Farenheight', 'SI7021', status, str(e)])                            
 
     try:
-        humid = si.getHumidity()
+        humid = si.get_humidity()
 
         status = 'Success'
         if test:
             status = 'Test'
-        record_env('Environment_Observation', 'Air', 'Top', 'Humidity', "{:10.1f}".format(humid), 'SI7021', status)                
+        saveList(['Environment_Observation', '', 'Top', 'Air', 'Humidity', "{:10.1f}".format(humid), 'Percent', 'SI7021', status, ''])                
         
     except Exception as e:
         status = 'Failure'
         if test:
             status = 'Test'
-        record_env('Environment_Observation', 'Air', 'Top', 'Humidity', '', 'SI7021', status, comment=str(e))                                        
+        saveList(['Environment_Observation', '', 'Top', 'Air', 'Humidity', '', 'Percent', 'SI7021', status, str(e)])
             
 
 def test():
