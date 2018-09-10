@@ -1,5 +1,3 @@
-import env
-print(env.env)
-print(env.env['mac'])
-print(env.env['exp'])
+from env import env
+print(env)
 
