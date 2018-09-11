@@ -1,4 +1,5 @@
 {
+  "_id":"_design/FullIdx",
   "language": "query",
   "views": {
     "date_sort_idx": {
