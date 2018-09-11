@@ -38,7 +38,7 @@ def saveDict(name, file_name, dict):
     f.close()    
     
 def test():
-#    setup()
+    setup()
     from env import env
     prettyPrint(env)
 
