@@ -23,7 +23,7 @@ sudo mkdir /home/couchdb
 sudo chown couchdb:couchdb /home/couchdb
  
 # Get source - need URL for mirror (see blog instructions)
-http://www-eu.apache.org/dist/couchdb/source/2.2.0/apache-couchdb-2.2.0.tar.gz
+wget http://www-eu.apache.org/dist/couchdb/source/2.2.0/apache-couchdb-2.2.0.tar.gz
  
 # extract source and enter source directory
 tar zxvf apache-couchdb-2.2.0.tar.gz 
