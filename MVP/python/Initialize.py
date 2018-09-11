@@ -7,7 +7,6 @@ Create a uuid to uniquely identify this MVP
 
 import uuid
 from datetime import tzinfo, datetime
-from GeoLocate import get_location
 import json
 
 env_file = '/home/pi/MVP/python/env.py'
@@ -36,32 +35,9 @@ def get_field(name='Field Name'):
     """    
 
     field = {}
-    field['uuid'] = str(uuid.uuid4())
-    field['name'] = name
-    field['plots'] = get_plots(2, 3)
+    field['field_id'] = str(uuid.uuid4())
     return field
 
-
-def get_plots(rows=2, columns=3):
-    """ Define the plot structure of the MVP (defaults to 2 rows, 3 plots
-        Create a uuid to uniquely identify this MVP
-        Args:
-            rows : number of horizontal rows in grid
-            columns : number of vertical columns in grid
-        Returns:
-            plots : dictionary structure of plots
-        Raises:
-            None
-    """    
-    plots = {}
-    id = 1
-    for r in range(1, rows+1):
-        for c in range(1, columns+1):
-            plot = {'plot_id':id, 'row':r, 'column':c, 'name':'Plant_'+ str(id)}
-            plots[id] = plot
-            id += 1
-    return plots
-    
 
 def save_dictionary(name, file_name, dict):
     """Save structure to a file
@@ -88,7 +64,7 @@ def pretty_print(txt):
             None
     """    
     #print type(txt)
-    print json.dumps(txt, indent=4, sort_keys=True)    
+    print(json.dumps(txt, indent=4, sort_keys=True))
     
 def test():
     """Print out the env.py dictionary
