@@ -51,7 +51,7 @@ mkdir -p /home/pi/MVP/logs
 
 # start database
 sudo chmod +x $TARGET/scripts/startCouchDB.sh
-$TARGET/scripts/startCouchDB.sh
+$TARGET/scripts/StartCouchDB.sh
 
 echo "##### Give CouchDB some time to start before proceeding #####"
 sleep 45
