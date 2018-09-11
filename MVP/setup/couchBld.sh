@@ -23,7 +23,7 @@ sudo mkdir /home/couchdb
 sudo chown couchdb:couchdb /home/couchdb
  
 # Get source - need URL for mirror (see blog instructions)
-wget http://mirror.stjschools.org/public/apache/couchdb/source/2.1.1/apache-couchdb-2.2.0.tar.gz
+http://www-eu.apache.org/dist/couchdb/source/2.2.0/apache-couchdb-2.2.0.tar.gz
  
 # extract source and enter source directory
 tar zxvf apache-couchdb-2.2.0.tar.gz 
@@ -37,7 +37,7 @@ make release
 cd ./rel/couchdb/
 sudo cp -Rp * /home/couchdb
 sudo chown -R couchdb:couchdb /home/couchdb
-cd /home/couchdb/etc
+#cd /home/couchdb/etc
 
 # Clean up
 #sudo rm /home/pi/erlang_solutions.asc
