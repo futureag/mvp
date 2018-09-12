@@ -238,9 +238,9 @@ def test():
         print('Temp C: %.2f C' % temp)
 
     si.reset()
-    si.get_rev()
-    si.get_id1()
-    si.get_id2()
+#    si.get_rev()
+#    si.get_id1()
+#    si.get_id2()
 
 if __name__ == "__main__":
     test()
