@@ -62,7 +62,7 @@ else
     error_exit "CouchDB not Running"
 fi
 
-curl http://localhost:5984/mvp_test &> /dev/null
+curl http://localhost:5984/mvp_data &> /dev/null
 if [ $? = 0 ]
 then
     printf "Sensor database OK\n"
