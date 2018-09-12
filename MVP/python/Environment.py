@@ -10,6 +10,7 @@ def setup():
     env={}
     env['field']=getField()
     env['thermostat'] = setTargetTemperature()
+    env['lights'] = setLights()
     saveDict('env', '/home/pi/MVP/python/env.py', env)
 
 def getField():
@@ -24,6 +25,10 @@ def setTargetTemperature(targetTemp=25):
        setPoint is the temperature the thermostat reacts to
     '''        
     return {'targetTemp':targetTemp}
+
+def setLights(on='06:30:00', off='22:00:00'):
+	lights = {'On':on, 'Off': off}
+	return lights
 
 def prettyPrint(txt):
     '''Dump json in nice format'''

@@ -32,9 +32,9 @@ def checkLight(test=False):
 
     logger = get_logger()
     # Get times from env and split into components
-    s=env['Lights']['On']
+    s=env['lights']['On']
     s=s.split(':')
-    e=env['Lights']['Off']
+    e=env['lights']['Off']
     e=e.split(':')
     # Munge date into times
     t=datetime.now()
@@ -63,9 +63,9 @@ def test():
 
     print 'Test'
     print 'Time: ', datetime.now()
-    s=env['Lights']['On']
+    s=env['lights']['On']
     s=s.split(':')
-    e=env['Lights']['Off']
+    e=env['lights']['Off']
     e=e.split(':')
 
     t=datetime.now()
