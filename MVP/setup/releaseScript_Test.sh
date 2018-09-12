@@ -40,3 +40,8 @@ chmod +x $TARGET/setup/Validate.sh
 $TARGET/setup/Validate.sh || error_exit "Validation test failure"
 echo $(date +"%D %T") "System PASSED"
 
+# Run startup to set lights
+python $PYTHON/StartUp.py || error_exit "Failure setting lights"
+echo $(date +"%D %T") "StartUp PASSED"
+
+
