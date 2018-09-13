@@ -3,9 +3,12 @@
 Change Log: 2018/07/05
   - Major change to the data JSON structure, this should be the final version
   - Removed SI7021 dependency on smbus, replaced with python-periphery
+  - Added StartUp.py to check state of lights when reboot
+  - Added HeartBeat.py to check CouchDB is up and running, or else will reboot automatically to reset the system
+  - Removed web access to CouchDB
   - File and method name changes for consistency with the python code standard
   - Add standard Python logging
-  - Change retreival of geo information due to API deprecation
+  - Removed retreival of geo information due to API deprecation
 
 ## Background 
 
@@ -13,6 +16,16 @@ Code and instructions for building the 'brain' of the controled environment hydr
 It is mostly a collection of python code that runs on a Raspberry Pi (or similar device).  See the OpenAg [forums](http://forum.openag.media.mit.edu/) for discussion and issues:
 
 The MVP (Minimal Viable Product) is a simplified version of the MIT OpenAg Food Computer.
+
+## Assumptions
+
+ - Follows the instructions for building a Raspbian (Noobs) system.
+ - Configure the environment (see below).  Turn VNC on, this is the easiest way to view multiple Raspberry Pis without needing separate keyboards and monitors for each.  You can view all the Raspberries on your local network through one Raspberry, or download VNC to a PC and access them through a PC.
+ 
+ ## Building multiple MVPs
+  - Once you have configured one SD card, from the main menu, use the Accessories/SD Card Copier to replicate the system for the other MVPs.  Just be sure to run the following so that a unique ID will be created for each MVP
+  
+  > python /home/pi/MVP/python/Environment.py
 
 ## Architecture:
 The MVP brain is mostly python scripts involed using cron as the scheduler.  
@@ -82,7 +95,7 @@ The initial script is not in Github, as the script extracts the files from Githu
 # Part 1
 # Semi-generic script to get and install github archive
 # Author: Howard Webb
-# Date: 11/16/2017
+# Date: 09/12/2018
 
 # This script assumes you are running on your Raspberry Pi with (Stretch) Raspbian installed.
 # Internet is connected
@@ -173,7 +186,6 @@ echo $(date +"%D %T") "Run permissions set"
 # Run script in download
 bash $TARGET/setup/releaseScript.sh || error_exit "Failure running release specific script"
 echo $(date +"%D %T") "Install Complete"
-
 ```
 ## Manual Build
 The following scripts (in /home/pi/MVP/scripts) can be run separately and in sequence if any errors are encountered.  Look within the scripts for single commands.
