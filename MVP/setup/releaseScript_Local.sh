@@ -74,7 +74,7 @@ chmod +x $TARGET/scripts/*.sh
 #Create variables
 # Build the environment information
 
-python $PYTHON/Initialize.py || error_exit "Failure to initialize MVP"
+python $PYTHON/Environment.py || error_exit "Failure to initialize MVP"
 echo  $(date +"%D %T") "MVP Initialized"
 
 echo "##### Make Pi owner of MVP ####"
