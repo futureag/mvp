@@ -42,7 +42,7 @@ def buildChart(data):
     #need to reverse order to go from earliest to latest
     v_lst.reverse()
     line_chart.add('Air Temp', v_lst)
-    line_chart.render_to_file('/home/pi/MVP/web/temp_chart.svg')
+    line_chart.render_to_file('/home/pi/MVP/web/humidity_chart.svg')
 
 def buildTempChart():
     data=getResults(True)
