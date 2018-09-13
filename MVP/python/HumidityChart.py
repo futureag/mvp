@@ -33,8 +33,8 @@ def buildChart(data):
 
 
     line_chart = pygal.Line()
-    line_chart.title = 'Temperature'
-    line_chart.y_title="Degrees C"
+    line_chart.title = 'Humidity'
+    line_chart.y_title="Percent"
     line_chart.x_title="Timestamp (hover over to display date)"
     #need to reverse order to go from earliest to latest
     ts_lst.reverse()
