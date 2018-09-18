@@ -121,7 +121,7 @@ NC='\033[0m'        # Define default text
 EXTRACT=/home/pi/unpack    # Working directory for download and unzipping
 TARGET=/home/pi/MVP       # Location for MVP
 RELEASE=mvp             # Package (repository) to download 
-GITHUB=https://github.com/futureag/$RELEASE/archive/3.1.0.zip    # Address of Github archive
+GITHUB=https://github.com/futureag/$RELEASE/archive/v3.1.0.zip    # Address of Github archive
 
 echo $EXTRACT
 echo $TARGET
@@ -165,7 +165,7 @@ cd $EXTRACT
 unzip -uo $EXTRACT/mvp.zip || error_exit "Failure unzipping file"
 echo $(date +"%D %T") "MVP unzipped"
 
-cd $EXTRACT/$RELEASE-master/MVP || error_exit "Failure moving to "$EXTRACT/$RELEASE"-master"
+cd $EXTRACT/$RELEASE-3.1.0/MVP || error_exit "Failure moving to "$EXTRACT/$RELEASE"-master"
 
 # Move to proper directory
 mv * $TARGET
