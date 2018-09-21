@@ -1,5 +1,10 @@
 # MVP III
 
+Latest Release: 3.1.1
+
+Change Log: 2018/09/21
+  - Correct typo in Startup.sh
+
 Change Log: 2018/07/05
   - Major change to the data JSON structure, this should be the final version
   - Removed SI7021 dependency on smbus, replaced with python-periphery
@@ -121,7 +126,8 @@ NC='\033[0m'        # Define default text
 EXTRACT=/home/pi/unpack    # Working directory for download and unzipping
 TARGET=/home/pi/MVP       # Location for MVP
 RELEASE=mvp             # Package (repository) to download 
-GITHUB=https://github.com/futureag/$RELEASE/archive/v3.1.0.zip    # Address of Github archive
+VERSION=v3.1.1         # github version to work with
+GITHUB=https://github.com/futureag/$RELEASE/archive/$VERSION.zip    # Address of Github archive
 
 echo $EXTRACT
 echo $TARGET
@@ -165,7 +171,7 @@ cd $EXTRACT
 unzip -uo $EXTRACT/mvp.zip || error_exit "Failure unzipping file"
 echo $(date +"%D %T") "MVP unzipped"
 
-cd $EXTRACT/$RELEASE-3.1.0/MVP || error_exit "Failure moving to "$EXTRACT/$RELEASE"-master"
+cd $EXTRACT/$RELEASE-$VERSION/MVP || error_exit "Failure moving to "$EXTRACT/$RELEASE"-"$VERSION
 
 # Move to proper directory
 mv * $TARGET
