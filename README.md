@@ -126,7 +126,7 @@ NC='\033[0m'        # Define default text
 EXTRACT=/home/pi/unpack    # Working directory for download and unzipping
 TARGET=/home/pi/MVP       # Location for MVP
 RELEASE=mvp             # Package (repository) to download 
-VERSION=v3.1.1         # github version to work with
+VERSION=v3.1.2         # github version to work with
 GITHUB=https://github.com/futureag/$RELEASE/archive/$VERSION.zip    # Address of Github archive
 
 echo $EXTRACT
