@@ -47,6 +47,9 @@ RC_LOCAL2=/home/pi/MVP/setup/rc.local
 yes | sudo cp -rf $RC_LOCAL2 $RC_LOCAL
 sudo chmod +x $RC_LOCAL
 
+# Change permissions on logs
+sudo chmod 666 /home/pi/MVP/logs/*
+
 echo "##### Load Cron ####"
 CMD=$TARGET/scripts/Cron.sh
 chmod +x $CMD
