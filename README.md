@@ -1,6 +1,9 @@
 # MVP III
 
-Latest Release: 3.1.1
+Latest Release: 3.1.3
+
+Change Log: 2018/09/24
+ - add chmod to Startup.sh so logs always have the correct write permission
 
 Change Log: 2018/09/21
   - Correct typo in Startup.sh
