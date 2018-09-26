@@ -7,7 +7,10 @@
 from Light import *
 from env import env
 from datetime import datetime
+from datetime import timedelta
 from LogUtil import get_logger
+
+logger = get_logger()
 
 def check(test=False):
     """Main function to run what needs to be done at restart
@@ -29,57 +32,49 @@ def checkLight(test=False):
     Raises:
         None
     """
-
-    logger = get_logger()
     # Get times from env and split into components
-    s=env['lights']['On']
-    s=s.split(':')
-    e=env['lights']['Off']
-    e=e.split(':')
+    s=env['Lights']['On']
+    e=env['Lights']['Off']
+    state = determineState(s, e)
+    l=Light()
+    if state:
+        l.set_on(test)
+        pass
+    else:
+        l.set_off(test)
+        pass
+        
+def determineState(start, end):
+    ''' Determine if lights should be on or off'''
+    global logger
+    s=start.split(':')
+    e=end.split(':')    
     # Munge date into times
     t=datetime.now()
     st=t.replace(hour=int(s[0]), minute=int(s[1]), second=int(s[2]))
     et=t.replace(hour=int(e[0]), minute=int(e[1]), second=int(e[2]))
+
+    if st > et:
+        # Night Light - roll to next day when lights go off
+        et += timedelta(days=1)
+
     msg = "{} {} {} {}".format("Start Time: ", st, "End Time: ", et)
     logger.debug(msg)
-    l=Light()
-    msg="Lights should be On"
+    
     if (st < datetime.now()) and (et > datetime.now()):
-        l.set_on(test)
+        msg="Lights should be On"
+        logger.debug(msg)            
+        return True
     else:
         msg="Lights should be Off"
-        l.set_off(test)
-    logger.debug(msg)
+        logger.debug(msg)        
+        return False
+
 
 def test():
-    """Self check function
-    Args:
-        None:
-    Returns:
-        None
-    Raises:
-        None
-    """    
-
-    print 'Test'
-    print 'Time: ', datetime.now()
-    s=env['lights']['On']
-    s=s.split(':')
-    e=env['lights']['Off']
-    e=e.split(':')
-
-    t=datetime.now()
-    st=t.replace(hour=int(s[0]), minute=int(s[1]), second=int(s[2]))
-    et=t.replace(hour=int(e[0]), minute=int(e[1]), second=int(e[2]))
-    print "Start: ", st
-    print "End: ", et    
-    if (st < datetime.now()) and (et > datetime.now()):
-        print "Lights should be on"
-    else:
-        print "Lights should be off"
-        
-             
+    determineState('06:30:00', '22:00:00')
+    determineState('15:30:00', '08:30:00')    
 
 if __name__=="__main__":
-    check()
+    test()
      
