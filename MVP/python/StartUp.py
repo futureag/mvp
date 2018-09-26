@@ -33,8 +33,8 @@ def checkLight(test=False):
         None
     """
     # Get times from env and split into components
-    s=env['Lights']['On']
-    e=env['Lights']['Off']
+    s=env['lights']['On']
+    e=env['lights']['Off']
     state = determineState(s, e)
     l=Light()
     if state:
