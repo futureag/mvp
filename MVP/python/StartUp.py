@@ -76,5 +76,6 @@ def test():
     determineState('15:30:00', '08:30:00')    
 
 if __name__=="__main__":
-    test()
+#    test()
+    check()
      
