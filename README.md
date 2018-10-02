@@ -2,6 +2,10 @@
 
 Latest Release: 3.1.3
 
+Change Log: 2018/10/2
+ - Added binary CouchDB to get around build problems
+ - NOTE: Fuxton is not included in this binary
+
 Change Log: 2018/09/24
  - add chmod to Startup.sh so logs always have the correct write permission
 
@@ -103,7 +107,7 @@ The initial script is not in Github, as the script extracts the files from Githu
 # Part 1
 # Semi-generic script to get and install github archive
 # Author: Howard Webb
-# Date: 09/12/2018
+# Date: 10/02/2018
 
 # This script assumes you are running on your Raspberry Pi with (Stretch) Raspbian installed.
 # Internet is connected
@@ -129,8 +133,8 @@ NC='\033[0m'        # Define default text
 EXTRACT=/home/pi/unpack    # Working directory for download and unzipping
 TARGET=/home/pi/MVP       # Location for MVP
 RELEASE=mvp             # Package (repository) to download 
-VERSION=v3.1.3         # github version to work with
-ZIP_DIR=3.1.3
+VERSION=v3.1.4         # github version to work with
+ZIP_DIR=3.1.4
 GITHUB=https://github.com/futureag/$RELEASE/archive/$VERSION.zip    # Address of Github archive
 
 echo $EXTRACT
@@ -181,10 +185,6 @@ cd $EXTRACT/$RELEASE-$ZIP_DIR/MVP || error_exit "Failure moving to "$EXTRACT/$RE
 mv * $TARGET
 echo $(date +"%D %T") "MVP moved"
 
-# Clean up temporary extraction directory
-rm -r $EXTRACT
-echo $(date +"%D %T") $EXTRACT" removed"
-
 ########################################
 echo "##### Relsease Specific Build #####"
 # Complete the release specific build - this is the CouchDB extract
@@ -195,6 +195,11 @@ echo $(date +"%D %T") "Run permissions set"
 
 # Run script in download
 bash $TARGET/setup/releaseScript.sh || error_exit "Failure running release specific script"
+
+# Clean up temporary extraction directory
+rm -r $EXTRACT
+echo $(date +"%D %T") $EXTRACT" removed"
+
 echo $(date +"%D %T") "Install Complete"
 
 ```
