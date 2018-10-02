@@ -48,6 +48,9 @@ error_exit()
 
 ####### Start Build ######################
 
+#add couchdb user and home
+sudo useradd -d /home/couchdb couchdb
+
 cd $EXTRACT/$RELEASE-master || error_exit "Failure moving to "$EXTRACT/$RELEASE"-master"
 
 # Move to proper directory
