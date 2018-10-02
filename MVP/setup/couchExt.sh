@@ -28,6 +28,7 @@ NC='\033[0m'        # Define default text
 EXTRACT=/home/pi/unpack    # Working directory for download and unzipping
 TARGET=/home/pi/MVP       # Location for MVP
 RELEASE=mvp             # Package (repository) to download 
+VERSION=3.1.6
 GITHUB=https://github.com/futureag/$RELEASE/archive/master.zip    # Address of Github archive
 
 echo $EXTRACT
@@ -51,7 +52,7 @@ error_exit()
 #add couchdb user and home
 sudo useradd -d /home/couchdb couchdb
 
-cd $EXTRACT/$RELEASE-master || error_exit "Failure moving to "$EXTRACT/$RELEASE"-master"
+cd $EXTRACT/$RELEASE-$VERSION || error_exit "Failure moving to "$EXTRACT/$RELEASE-$VERSION""
 
 # Move to proper directory
 tar -xvzf couchdb.tar.gz
