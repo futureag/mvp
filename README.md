@@ -1,6 +1,6 @@
 # MVP III
 
-Latest Release: 3.1.5
+Latest Release: 3.1.6
 
 Change Log: 2018/10/2
  - Added binary CouchDB to get around build problems
@@ -133,8 +133,8 @@ NC='\033[0m'        # Define default text
 EXTRACT=/home/pi/unpack    # Working directory for download and unzipping
 TARGET=/home/pi/MVP       # Location for MVP
 RELEASE=mvp             # Package (repository) to download 
-VERSION=v3.1.5         # github version to work with
-ZIP_DIR=3.1.5
+VERSION=v3.1.6         # github version to work with
+ZIP_DIR=3.1.6
 GITHUB=https://github.com/futureag/$RELEASE/archive/$VERSION.zip    # Address of Github archive
 
 echo $EXTRACT
