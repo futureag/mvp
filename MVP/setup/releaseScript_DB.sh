@@ -32,9 +32,12 @@ error_exit()
 
 echo "##### Installing CouchDB #####"
 # Uncomment to compile
-COUCH=couchBld.sh
+#COUCH=couchBld.sh
 # Uncomment to download
 #COUCH=couchDwn.sh 
+# Uncomment to download
+COUCH=couchExt.sh 
+
 
 #add couchdb user and home
 sudo useradd -d /home/couchdb couchdb
@@ -58,7 +61,8 @@ sleep 45
 
 echo "##### Finish Initianization of CouchDB #####"
 sudo chmod +x $TARGET/setup/couchInit.sh || error_exit "Failure setting permissions "$COUCH
-$TARGET/setup/couchInit.sh
+# Not needed for Extract - already done
+#$TARGET/setup/couchInit.sh
 
 
 
