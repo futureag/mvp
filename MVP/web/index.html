@@ -59,14 +59,14 @@ div.tab button.active {
 
 <div id="Temperature" class="tabcontent">
   <h3>Temperature</h3>
-    <object type="image/svg+xml" data="temp_chart.svg">
+    <object id="tempChartImage" type="image/svg+xml" data="temp_chart.svg">
 	"Your browser does not support SVG
     </object>
 </div>
 
 <div id="Humidity" class="tabcontent">
   <h3>Humidity</h3>
-    <object type="image/svg+xml" data="humidity_chart.svg"/>
+    <object id="humidityChartImage" type="image/svg+xml" data="humidity_chart.svg"/>
 	"Your browser does not support SVG
     </object>
 </div>
@@ -75,7 +75,7 @@ div.tab button.active {
   <h3>Camera</h3>
   <p>Latest picture goes here.</p>
   <p>
-  <img src="image.jpg" alt="Latest MVP image" style="width:640px;height:480px;">
+  <img id="latestCameraImage" src="image.jpg" alt="Latest MVP image" style="width:640px;height:480px;">
   </p>
 </div>
 
@@ -92,8 +92,29 @@ div.tab button.active {
 </div>
 
 <script>
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+function updateImages() {
+    var randomNumber = getRandomNumber(1000000000, 9999999999);
+
+    // ask for the images with a random query string so the browser doesn't use a cached image.
+    document.getElementById("tempChartImage")
+	    .setAttribute('data', 'temp_chart.svg?' + randomNumber);
+
+    document.getElementById("humidityChartImage")
+	    .setAttribute('data', 'humidity_chart.svg?' + randomNumber);
+
+    document.getElementById("latestCameraImage")
+	    .setAttribute('data', 'image.jpg?' + randomNumber);
+}
+
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
+
+    updateImages();
+
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
