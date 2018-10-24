@@ -18,7 +18,7 @@ def logDB(timestamp, name, status, attribute, value, comment):
     json_data = json.dumps(log_record)
     print(json.dumps(log_record, indent=4, sort_keys=True))
     headers = {'content-type': 'application/json'}
-    r = requests.post('http://localhost:5984/mvp_sensor_data', data = json_data, headers=headers)
+    r = requests.post('http://localhost:5984/mvp_data', data = json_data, headers=headers)
     print(r.json())
 
 #Uncomment to test this function
