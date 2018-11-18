@@ -57,6 +57,13 @@ cd $EXTRACT/$RELEASE-$VERSION || error_exit "Failure moving to "$EXTRACT/$RELEAS
 # Move to proper directory
 tar -xvzf couchdb.tar.gz
 sudo mv couchdb /home
+
+echo "Correcting permissions on couchdb directory"
+sudo chown -R couchdb:couchdb /home/couchdb
+
+echo "Adding pi user to couchdb group"
+sudo usermod -a -G couchdb pi
+
 echo $(date +"%D %T") "CouchDB moved"
 
 
