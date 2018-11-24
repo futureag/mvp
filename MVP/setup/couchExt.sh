@@ -59,4 +59,8 @@ tar -xvzf couchdb.tar.gz
 sudo mv couchdb /home
 echo $(date +"%D %T") "CouchDB moved"
 
+sudo chown -R couchdb:couchdb /home/couchdb
+echo $(date +"%D %T") "Changed ownership of /home/couchdb"
+
+
 
