@@ -41,6 +41,8 @@ COUCH=couchExt.sh
 
 #add couchdb user and home
 sudo useradd -d /home/couchdb couchdb
+# add pi to group so can write to logs
+sudo usermod -a -G couchdb pi
 
 # Install Database
 chmod +x $TARGET/setup/$COUCH || error_exit "Failure setting permissions "$COUCH
