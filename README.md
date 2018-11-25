@@ -189,6 +189,9 @@ cd $EXTRACT/$RELEASE-$ZIP_DIR/MVP || error_exit "Failure moving to "$EXTRACT/$RE
 mv * $TARGET
 echo $(date +"%D %T") "MVP moved"
 
+# Adjust to help log writting permissions
+sudo usermod -a -G couchdb pi
+
 ########################################
 echo "##### Relsease Specific Build #####"
 # Complete the release specific build - this is the CouchDB extract
