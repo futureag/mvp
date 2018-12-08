@@ -139,14 +139,19 @@ class SI7021(object):
        """
        print "\nGet Revision"
        msgs = self._i2c.get_msg([firm_rev_1_1, firm_rev_1_2], 3)
-       rev = msgs[1].data[0]
-       if rev == 0xFF:
-           print "version 1.0"
-       elif rev == 0x20:
-           print "version 2.0"
+       # Need to test, may error out on some conditions
+       rev = None
+       if not ((msgs is None) or (msgs[1].data is None)):
+          rev = msgs[1].data[0]
+          if rev == 0xFF:
+              print "version 1.0"
+          elif rev == 0x20:
+              print "version 2.0"
+          else:
+              print "Unknown"
        else:
-           print "Unknown"
-       return rev        
+          print "No Revision Data Available"
+          return rev        
 
    def get_id1(self):
        """Print the first part of the chips unique id
